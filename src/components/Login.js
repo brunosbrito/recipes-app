@@ -29,6 +29,12 @@ function Login() {
     }
   }, [user.email, user.password]);
 
+  function setLocal() {
+    localStorage.setItem('user', JSON.stringify({
+      email: user.email,
+    }));
+  }
+
   return (
     <>
       <input
@@ -49,6 +55,7 @@ function Login() {
         data-testid="login-submit-btn"
         type="button"
         disabled={ disabled }
+        onClick={ setLocal }
       >
         Enter
       </button>
