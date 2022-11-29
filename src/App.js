@@ -1,20 +1,17 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Switch } from 'react-router-dom';
-// import rockGlass from './images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from './components/Footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Route, Switch } from 'react-router-dom';
+import Login from './components/Login';
 
 function App() {
   return (
-
-    <BrowserRouter>
-      <Switch>
-        <Footer />
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Footer />
+      <Route exact path="/" render={ (props) => <Login { ...props } /> } />
+    </Switch>
   );
 }
-//
 
 export default App;
