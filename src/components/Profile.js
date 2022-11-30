@@ -15,7 +15,7 @@ function Profile() {
 
     <>
       <Header />
-      <h2 data-testid="profile-email">{ profileEmailParse.email }</h2>
+      <h2 data-testid="profile-email">{ profileEmailParse?.email }</h2>
       <button
         data-testid="profile-done-btn"
         type="button"
