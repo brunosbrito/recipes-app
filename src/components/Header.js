@@ -9,6 +9,8 @@ function Header() {
 
   const [inputSearch, setInputSearch] = useState(false);
 
+  const slug = history.location.pathname;
+
   const profileButton = () => {
     history.push('/profile');
     // console.log(history);
@@ -22,6 +24,24 @@ function Header() {
       setInputSearch(false);
     }
   };
+
+  function handleTitle() {
+    switch (slug) {
+    case '/meals':
+      return 'Meals';
+    case '/drinks':
+      return 'Drinks';
+    case '/profile':
+      return 'Profile';
+    case '/done-recipes':
+      return 'Done Recipes';
+    case '/favorite-recipes':
+      return 'Favorite Recipes';
+    default:
+      break;
+    }
+  }
+
   return (
     <header>
       <button
@@ -34,17 +54,21 @@ function Header() {
           alt="Foto de Perfil"
         />
       </button>
-      <button
-        type="button"
-        onClick={ searchButton }
-      >
-        <img
-          data-testid="search-top-btn"
-          src={ iconePicture }
-          alt="Ícone de Pesquisa"
-        />
-      </button>
-      <h1 data-testid="page-title">Aqui vai ser alterado</h1>
+      {
+        (slug !== '/profile' && slug !== '/done-recipes' && slug !== '/favorite-recipes')
+        && (
+          <button
+            type="button"
+            onClick={ searchButton }
+          >
+            <img
+              data-testid="search-top-btn"
+              src={ iconePicture }
+              alt="Ícone de Pesquisa"
+            />
+          </button>)
+      }
+      <h1 data-testid="page-title">{ handleTitle() }</h1>
       { inputSearch && <SearchBar />}
     </header>
   );
