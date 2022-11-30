@@ -1,11 +1,12 @@
 import React from 'react';
+import Footer from './Footer';
 import Header from './Header';
 
 function Profile() {
   return (
     <div>
-      <h1>Profile </h1>
       <Header />
+      <Footer />
     </div>
   );
 }

@@ -5,19 +5,20 @@ import Profile from './components/Profile';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
-import Meals from './pages/Meals';
-import Drinks from './pages/Drinks';
+import Recipes from './components/Recipes';
+import DoneRecipes from './components/DoneRecipes';
+import FavoriteRecipes from './components/FavoriteRecipes';
 
 function App() {
   return (
     <Switch>
-      <Route path="/meals" component={ Meals } />
-      <Route path="/drinks" component={ Drinks } />
-      <Route
-        exact
-        path="/profile"
-        render={ (props) => (<Profile { ...props } />) }
-      />
+      <Route path="/meals" component={ Recipes } />
+      <Route path="/drinks" component={ Recipes } />
+      <Route path="/meals/:id" />
+      <Route path="/drinks/:id" />
+      <Route path="/done-recipes" component={ DoneRecipes } />
+      <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+      <Route path="/profile" component={ Profile } />
       <Route exact path="/" render={ (props) => <Login { ...props } /> } />
     </Switch>
   );
