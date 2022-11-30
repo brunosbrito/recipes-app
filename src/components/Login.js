@@ -68,7 +68,7 @@ function Login({ history }) {
 
 Login.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func,
+    push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
