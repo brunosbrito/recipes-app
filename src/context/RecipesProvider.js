@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useMemo, useState } from 'react';
 import RecipesContext from './RecipesContext';
 
-function RecipesPrvider({ children }) {
+function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   const [initialRecipes, setInitialRecipes] = useState([]);
@@ -17,8 +17,8 @@ function RecipesPrvider({ children }) {
   );
 }
 
-RecipesPrvider.propTypes = {
+RecipesProvider.propTypes = {
   children: PropTypes.func.isRequired,
 };
 
-export default RecipesPrvider;
+export default RecipesProvider;

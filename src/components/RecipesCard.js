@@ -14,7 +14,7 @@ function RecipesCard() {
     return newArray;
   }
 
-  function oneRecipe() {
+  useEffect(() => {
     if (data?.length === 1) {
       history.push((history.location.pathname === '/meals')
         ? `/meals/${data[0].idMeal}`
@@ -24,11 +24,7 @@ function RecipesCard() {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
       setData([]);
     }
-  }
-
-  useEffect(() => {
-    oneRecipe();
-  }, [data]);
+  }, [data, history, setData]);
 
   return (
     <>

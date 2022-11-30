@@ -30,10 +30,7 @@ function SearchBar() {
       setData(requestName);
     } else if (optionSearch === firstLetter) {
       const requestFirstLetter = await RquestFirstLetterApi(input);
-      console.log(requestFirstLetter);
       setData(requestFirstLetter);
-    } else {
-      console.log(error);
     }
   };
 
@@ -47,8 +44,6 @@ function SearchBar() {
     } else if (optionSearch === firstLetter) {
       const requestFirstLetter = await RequestFooterFisrtLetterApi(input);
       setData(requestFirstLetter);
-    } else {
-      console.log(error);
     }
   };
 
@@ -63,7 +58,7 @@ function SearchBar() {
   const handleChangeInput = ({ target }) => {
     setInput(target.value);
     if (input.length > 0 && optionSearch === 'First letter') {
-      return global.alert('Your search must have only 1 (one) character');
+      global.alert('Your search must have only 1 (one) character');
     }
   };
   return (
