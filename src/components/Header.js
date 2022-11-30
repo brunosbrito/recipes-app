@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import profilePicture from '../images/profileIcon.svg';
 import iconePicture from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 function Header() {
   const history = useHistory();
 
-  const [inputSearch, setInputSearch] = useState('none');
+  const [inputSearch, setInputSearch] = useState(false);
 
   const profileButton = () => {
     history.push('/profile');
@@ -14,8 +15,12 @@ function Header() {
   };
 
   const searchButton = () => {
-    if (inputSearch === 'none') setInputSearch('block');
-    if (inputSearch === 'block') setInputSearch('none');
+    if (inputSearch === false) {
+      setInputSearch(true);
+      console.log('tru');
+    } else if (inputSearch === true) {
+      setInputSearch(false);
+    }
   };
   return (
     <header>
@@ -40,11 +45,7 @@ function Header() {
         />
       </button>
       <h1 data-testid="page-title">Aqui vai ser alterado</h1>
-      <input
-        type="text"
-        data-testid="search-input"
-        style={ { display: inputSearch } }
-      />
+      { inputSearch && <SearchBar />}
     </header>
   );
 }

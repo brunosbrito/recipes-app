@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 import {
   RequestIngredientApi,
   RequestNameApi,
@@ -12,6 +13,7 @@ import {
 function SearchBar() {
   const [optionSearch, setOptionSearch] = useState('');
   const [input, setInput] = useState('');
+  const { setData } = useContext(RecipesContext);
   const history = useHistory();
   const firstLetter = 'First letter';
 
@@ -22,13 +24,14 @@ function SearchBar() {
   const drinks = async () => {
     if (optionSearch === 'Ingredient') {
       const resquetIngredient = await RequestIngredientApi(input);
-      console.log(resquetIngredient);
+      setData(resquetIngredient);
     } else if (optionSearch === 'Name') {
       const requestName = await RequestNameApi(input);
-      console.log(requestName);
+      setData(requestName);
     } else if (optionSearch === firstLetter) {
       const requestFirstLetter = await RquestFirstLetterApi(input);
       console.log(requestFirstLetter);
+      setData(requestFirstLetter);
     } else {
       console.log(error);
     }
@@ -37,35 +40,36 @@ function SearchBar() {
   const foods = async () => {
     if (optionSearch === 'Ingredient') {
       const resquetIngredient = await RequestFooterIngredientApi(input);
-      console.log(resquetIngredient);
+      setData(resquetIngredient);
     } else if (optionSearch === 'Name') {
       const requestName = await RequestFooterNameApi(input);
-      console.log(requestName);
+      setData(requestName);
     } else if (optionSearch === firstLetter) {
       const requestFirstLetter = await RequestFooterFisrtLetterApi(input);
-      console.log(requestFirstLetter);
+      setData(requestFirstLetter);
     } else {
       console.log(error);
     }
   };
 
   const handleClick = () => {
-    if (history('/meeals')) {
+    if (history.location.pathname === '/meals') {
       return foods();
+    } if (history.location.pathname === '/drinks') {
+      return drinks();
     }
-    return drinks();
   };
 
   const handleChangeInput = ({ target }) => {
     setInput(target.value);
-    if (input.length > 1 && optionSearch === 'First letter') {
-      return global.alert('our search must have only 1 (one) character');
+    if (input.length > 0 && optionSearch === 'First letter') {
+      return global.alert('Your search must have only 1 (one) character');
     }
   };
   return (
     <>
       <input
-        data-testid="search-top-btn"
+        data-testid="search-input"
         onChange={ handleChangeInput }
         type="text"
         placeholder="Receita"
@@ -85,9 +89,9 @@ function SearchBar() {
       <label htmlFor="Name">
         Name
         <input
-          testid="name-search-radio"
+          data-testid="name-search-radio"
           type="radio"
-          value="name"
+          value="Name"
           id="Name"
           name="search"
           onChange={ handleChangeOptions }
