@@ -11,7 +11,7 @@ export default function Footer() {
   }
 
   const handleMenuClick = () => {
-    history.push('/menu');
+    history.push('/meals');
   };
 
   return (
