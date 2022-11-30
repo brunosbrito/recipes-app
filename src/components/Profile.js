@@ -1,6 +1,6 @@
 import React from 'react';
-import Footer from './Footer';
 import { useHistory } from 'react-router-dom';
+import Footer from './Footer';
 import Header from './Header';
 
 function Profile() {
