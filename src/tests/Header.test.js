@@ -18,12 +18,11 @@ describe('Testando o componente Header', () => {
     userEvent.type(emailInput, emailEx);
     userEvent.type(passInput, '1234567');
     userEvent.click(buttonInput);
-
     userEvent.click(screen.getByTestId('profile-top-btn'));
     expect(history.location.pathname).toBe('/profile');
   });
 
-  test('1 - Testa se ao clicar no botão de pesquisa, aparece ou some o campo de entrada', () => {
+  test('2 - Testa se ao clicar no botão de pesquisa, aparece ou some o campo de entrada', () => {
     renderWithRouter(<App />);
     const emailInput = screen.getByTestId(emailInputStr);
     const passInput = screen.getByTestId(passInputStr);
@@ -37,5 +36,17 @@ describe('Testando o componente Header', () => {
 
     userEvent.click(screen.getByTestId('search-top-btn'));
     expect(screen.getByTestId('search-input')).not.toBeInTheDocument();
+  });
+
+  test('3 - Testa o título na página Meals', () => {
+    renderWithRouter(<App />);
+    const emailInput = screen.getByTestId(emailInputStr);
+    const passInput = screen.getByTestId(passInputStr);
+    const buttonInput = screen.getByTestId(loginSbmt);
+    userEvent.type(emailInput, emailEx);
+    userEvent.type(passInput, '1234567');
+    userEvent.click(buttonInput);
+    userEvent.click(screen.getByTestId('meals-bottom-btn'));
+    expect(screen.getByTestId('page-title')).toHaveTextContent('Meals');
   });
 });

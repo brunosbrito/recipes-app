@@ -20,20 +20,11 @@ function Header() {
   };
 
   function handleTitle() {
-    switch (slug) {
-    case '/meals':
-      return 'Meals';
-    case '/drinks':
-      return 'Drinks';
-    case '/profile':
-      return 'Profile';
-    case '/done-recipes':
-      return 'Done Recipes';
-    case '/favorite-recipes':
-      return 'Favorite Recipes';
-    default:
-      break;
-    }
+    if (slug === '/meals') return 'Meals';
+    if (slug === '/drinks') return 'Drinks';
+    if (slug === '/profile') return 'Profile';
+    if (slug === '/done-recipes') return 'Done Recipes';
+    if (slug === '/favorite-recipes') return 'Favorite Recipes';
   }
 
   return (
