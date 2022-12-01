@@ -11,42 +11,27 @@ function Header() {
 
   const slug = history.location.pathname;
 
-  const profileButton = () => {
-    history.push('/profile');
-    // console.log(history);
-  };
-
   const searchButton = () => {
     if (inputSearch === false) {
       setInputSearch(true);
-      console.log('tru');
     } else if (inputSearch === true) {
       setInputSearch(false);
     }
   };
 
   function handleTitle() {
-    switch (slug) {
-    case '/meals':
-      return 'Meals';
-    case '/drinks':
-      return 'Drinks';
-    case '/profile':
-      return 'Profile';
-    case '/done-recipes':
-      return 'Done Recipes';
-    case '/favorite-recipes':
-      return 'Favorite Recipes';
-    default:
-      break;
-    }
+    if (slug === '/meals') return 'Meals';
+    if (slug === '/drinks') return 'Drinks';
+    if (slug === '/profile') return 'Profile';
+    if (slug === '/done-recipes') return 'Done Recipes';
+    if (slug === '/favorite-recipes') return 'Favorite Recipes';
   }
 
   return (
     <header>
       <button
         type="button"
-        onClick={ profileButton }
+        onClick={ () => history.push('/profile') }
       >
         <img
           data-testid="profile-top-btn"

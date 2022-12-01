@@ -4,29 +4,33 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
 
-test('Testa se os ícones estão na tela e se os botões redirecionam para a página certa', () => {
-  renderWithRouter(<App />);
-  const drinksIcon = screen.getByTestId('drinks-bottom-btn');
-  const mealIcon = screen.getByTestId('meals-bottom-btn');
-
-  expect(drinksIcon).toBeInTheDocument();
-  expect(mealIcon).toBeInTheDocument();
-});
+const emailInputStr = 'email-input';
+const passInputStr = 'password-input';
+const loginSbmt = 'login-submit-btn';
+const emailEx = 'jose@gmail.com';
 
 test('Testa se o botão de drinks redireciona para a página certa', () => {
   const { history } = renderWithRouter(<App />);
-  const { pathname } = history.location;
-  const drinksIcon = screen.getByTestId('drinks-bottom-btn');
+  const emailInput = screen.getByTestId(emailInputStr);
+  const passInput = screen.getByTestId(passInputStr);
+  const buttonInput = screen.getByTestId(loginSbmt);
+  userEvent.type(emailInput, emailEx);
+  userEvent.type(passInput, '1234567');
+  userEvent.click(buttonInput);
 
-  userEvent.click(drinksIcon);
-  expect(pathname).toBe('/drinks');
+  userEvent.click(screen.getByTestId('drinks-bottom-btn'));
+  expect(history.location.pathname).toBe('/drinks');
 });
 
-test('Testa se o botão de drinks redireciona para a página certa', () => {
+test('Testa se o botão de meals redireciona para a página certa', () => {
   const { history } = renderWithRouter(<App />);
-  const { pathname } = history.location;
-  const mealIcon = screen.getByTestId('meals-bottom-btn');
+  const emailInput = screen.getByTestId(emailInputStr);
+  const passInput = screen.getByTestId(passInputStr);
+  const buttonInput = screen.getByTestId(loginSbmt);
+  userEvent.type(emailInput, emailEx);
+  userEvent.type(passInput, '1234567');
+  userEvent.click(buttonInput);
 
-  userEvent.click(mealIcon);
-  expect(pathname).toBe('/meals');
+  userEvent.click(screen.getByTestId('meals-bottom-btn'));
+  expect(history.location.pathname).toBe('/meals');
 });
