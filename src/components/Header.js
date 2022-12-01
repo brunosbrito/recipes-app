@@ -11,15 +11,9 @@ function Header() {
 
   const slug = history.location.pathname;
 
-  const profileButton = () => {
-    history.push('/profile');
-    // console.log(history);
-  };
-
   const searchButton = () => {
     if (inputSearch === false) {
       setInputSearch(true);
-      console.log('tru');
     } else if (inputSearch === true) {
       setInputSearch(false);
     }
@@ -46,7 +40,7 @@ function Header() {
     <header>
       <button
         type="button"
-        onClick={ profileButton }
+        onClick={ () => history.push('/profile') }
       >
         <img
           data-testid="profile-top-btn"
