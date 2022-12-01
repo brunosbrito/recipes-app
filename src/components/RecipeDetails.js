@@ -6,7 +6,7 @@ export default function RecipeDetails() {
   const history = useHistory();
   const { id } = useParams();
   const [dataMealsArray, setDataMealsArray] = useState([]);
-  const [dataDrinkAray, setDataDrinkArray] = useState([]);
+  const [dataDrinkArray, setDataDrinkArray] = useState([]);
 
   const requestDrink = async () => {
     const dataDrink = await RequestDrinkId(id);
@@ -22,21 +22,30 @@ export default function RecipeDetails() {
     if (history.location.pathname === `/meals/${id}`) {
       return dataMealsArray;
     }
-    return dataDrinkAray;
+    return dataDrinkArray;
   }
 
-  // const arrayIngredients = async () => {
-  //   console.log(await requestMeals());
-  // };
+  const arrayIngredients = () => {
+    const ingredients = checkPathname().map((el) => Object.entries(el)
+      .filter((entry) => entry[0]
+        .includes('strIngredient') && entry[1] !== '' && entry[1] !== null))
+      .map((arr) => arr.map((el) => el[1]))
+      .flat();
 
-  const ingredientsList = () => {
-    const ingri = checkPathname().reduce((total, valor) => {
-      valor.includes('strIngredient').forEach((ing) => {
-        total.push(ing);
-      });
-      return total;
-    }, []);
-    return ingri;
+    const measures = checkPathname().map((el) => Object.entries(el)
+      .filter((entry) => entry[0]
+        .includes('strMeasure') && entry[1] !== ' ' && entry[1] !== null))
+      .map((arr) => arr.map((el) => el[1]))
+      .flat();
+
+    const objInstructions = {};
+    ingredients.forEach((element, index) => {
+      objInstructions[element] = measures[index];
+    });
+
+    const arrayInstructions = Object.entries(objInstructions);
+
+    return arrayInstructions;
   };
 
   useEffect(() => {
@@ -47,48 +56,51 @@ export default function RecipeDetails() {
   }, []);
 
   return (
-    <div>
-      {/* {console.log(arrayIngredients())} */}
-      {dataMealsArray.map((recipe, index) => (
+    <>
+      {checkPathname().map((recipe, index) => (
         <div key={ index }>
           <img
             data-testid="recipe-photo"
+            src={ (history.location.pathname === `/meals/${id}`)
+              ? recipe.strMealThumb : recipe.strDrinkThumb }
+            alt={ (history.location.pathname === `/meals/${id}`)
+              ? recipe.strMeal : recipe.strDrink }
             style={ {
               maxWidth: '200px', maxHeight: '150px', width: 'auto', height: 'auto' } }
-            src={ recipe.strMealThumb }
-            alt={ recipe.strMeal }
           />
-          <h1 data-testid="recipe-title">{recipe.strMeal}</h1>
-          <p data-testid="recipe-category">{recipe.strCategory}</p>
-          {/* <ul>
-            <li>{recipe.strIngredient1}</li>
-            <li>{recipe.strIngredient2}</li>
-            <li>{recipe.strIngredient3}</li>
-            <li>{recipe.strIngredient4}</li>
-            <li>{recipe.strIngredient5}</li>
-            <li>{recipe.strIngredient6}</li>
-            <li>{recipe.strIngredient7}</li>
-            <li>{recipe.strIngredient8}</li>
-            <li>{recipe.strIngredient9}</li>
-            <li>{recipe.strIngredient10}</li>
-            <li>{recipe.strIngredient11}</li>
-            <li>{recipe.strIngredient12}</li>
-            <li>{recipe.strIngredient13}</li>
-            <li>{recipe.strIngredient14}</li>
-            <li>{recipe.strIngredient15}</li>
-            <li>{recipe.strIngredient16}</li>
-            <li>{recipe.strIngredient17}</li>
-            <li>{recipe.strIngredient18}</li>
-            <li>{recipe.strIngredient19}</li>
-            <li>{recipe.strIngredient20}</li>
-          </ul> */}
-          {/* {checkPathname().filter((value) => (
-            console.log(value.includes('strIngredient'))
-          ))} */}
+          <h1 data-testid="recipe-title">
+            {(history.location.pathname === `/meals/${id}`)
+              ? recipe.strMeal : recipe.strDrink}
+
+          </h1>
+          {(history.location.pathname === `/meals/${id}`)
+          && <p data-testid="recipe-category">{ recipe.strCategory }</p>}
+          {(history.location.pathname === `/drinks/${id}`)
+          && <p>{recipe.strAlcoholic}</p>}
 
         </div>
       ))}
+      {
+        arrayIngredients().map((ingredient, index) => (
+          <div key={ index }>
+            <ul>
+              <li data-testid={ `${index}-ingredient-name-and-measure` }>
+                {ingredient.join(', ')}
+              </li>
+            </ul>
+          </div>
+        ))
+      }
 
-    </div>
+      {checkPathname().map((int, index) => (
+        <div key={ index }>
+          <p data-testid="instructions">{int.strInstructions}</p>
+          <iframe data-testid="video" title="video receita" src={ int.strYoutube } />
+        </div>
+      ))}
+
+      {console.log('Array', arrayIngredients())}
+
+    </>
   );
 }

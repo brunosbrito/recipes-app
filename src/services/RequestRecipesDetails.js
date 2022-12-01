@@ -11,8 +11,8 @@ export async function RequestMealsId(id) {
 export async function RequestDrinkId(id) {
   try {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const request = await response.json();
-    return request.drink;
+    const { drinks } = await response.json();
+    return drinks;
   } catch (e) {
     throw new Error(e.message);
   }
