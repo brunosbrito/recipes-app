@@ -6,10 +6,32 @@ function RecipesProvider({ children }) {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   const [initialRecipes, setInitialRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState([]);
 
-  const value = useMemo(() => ({
-    data, setData, newData, setNewData, initialRecipes, setInitialRecipes,
-  }), [data, setData, newData, setNewData, initialRecipes, setInitialRecipes]);
+  const value = useMemo(
+    () => ({
+      data,
+      setData,
+      newData,
+      setNewData,
+      initialRecipes,
+      setInitialRecipes,
+      categories,
+      setCategories,
+      categoryFilter,
+      setCategoryFilter,
+    }),
+    [
+      data,
+      setData,
+      newData,
+      setNewData,
+      initialRecipes,
+      setInitialRecipes,
+      categories, setCategories, categoryFilter, setCategoryFilter,
+    ],
+  );
   return (
     <RecipesContext.Provider value={ value }>
       {children}
