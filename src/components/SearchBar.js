@@ -4,7 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 import {
   RequestIngredientApi,
   RequestNameApi,
-  RquestFirstLetterApi } from '../services/RequestDrinkApi';
+  RequestFirstLetterApi } from '../services/RequestDrinkApi';
 import {
   RequestFooterFisrtLetterApi,
   RequestFooterIngredientApi,
@@ -15,7 +15,6 @@ function SearchBar() {
   const [input, setInput] = useState('');
   const { setData } = useContext(RecipesContext);
   const history = useHistory();
-  const firstLetter = 'First letter';
 
   const handleChangeOptions = ({ target }) => {
     setOptionSearch(target.value);
@@ -28,8 +27,8 @@ function SearchBar() {
     } else if (optionSearch === 'Name') {
       const requestName = await RequestNameApi(input);
       setData(requestName);
-    } else if (optionSearch === firstLetter) {
-      const requestFirstLetter = await RquestFirstLetterApi(input);
+    } else {
+      const requestFirstLetter = await RequestFirstLetterApi(input);
       setData(requestFirstLetter);
     }
   };
@@ -41,7 +40,7 @@ function SearchBar() {
     } else if (optionSearch === 'Name') {
       const requestName = await RequestFooterNameApi(input);
       setData(requestName);
-    } else if (optionSearch === firstLetter) {
+    } else {
       const requestFirstLetter = await RequestFooterFisrtLetterApi(input);
       setData(requestFirstLetter);
     }
@@ -50,9 +49,9 @@ function SearchBar() {
   const handleClick = () => {
     if (history.location.pathname === '/meals') {
       return foods();
-    } if (history.location.pathname === '/drinks') {
-      return drinks();
     }
+
+    return drinks();
   };
 
   const handleChangeInput = ({ target }) => {

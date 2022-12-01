@@ -49,8 +49,6 @@ describe('Realiza teste do componente SearchBar', () => {
     const btnSearch = screen.getByTestId(btnSearchId);
     expect(btnSearch).toBeInTheDocument();
     userEvent.click(btnSearch);
-
-    await new Promise((r) => { setTimeout(r, 2000); });
   });
   it('clicar no input radios First letter (Meals)', async () => {
     const { history } = renderWithRouter(<App />);
@@ -89,8 +87,6 @@ describe('Realiza teste do componente SearchBar', () => {
     const btnSearch = screen.getByTestId(btnSearchId);
     expect(btnSearch).toBeInTheDocument();
     userEvent.click(btnSearch);
-
-    await new Promise((r) => { setTimeout(r, 2000); });
   });
   it('clicar no input radios Name (Drink)', async () => {
     const { history } = renderWithRouter(<App />);
@@ -109,8 +105,6 @@ describe('Realiza teste do componente SearchBar', () => {
     const btnSearch = screen.getByTestId(btnSearchId);
     expect(btnSearch).toBeInTheDocument();
     userEvent.click(btnSearch);
-
-    await new Promise((r) => { setTimeout(r, 2000); });
   });
   it('clicar no input radios Ingredientes (Drink)', async () => {
     const { history } = renderWithRouter(<App />);
@@ -129,8 +123,6 @@ describe('Realiza teste do componente SearchBar', () => {
     const btnSearch = screen.getByTestId(btnSearchId);
     expect(btnSearch).toBeInTheDocument();
     userEvent.click(btnSearch);
-
-    await new Promise((r) => { setTimeout(r, 2000); });
   });
   it('clicar no input radios First letter (Drink)', async () => {
     const { history } = renderWithRouter(<App />);
@@ -156,7 +148,6 @@ describe('Realiza teste do componente SearchBar', () => {
       ).toBeInTheDocument(),
       { timeout: 3000 },
     );
-    await new Promise((r) => { setTimeout(r, 2000); });
   });
   it('Testa o Alert', () => {
     const { history } = renderWithRouter(<App />);
@@ -172,11 +163,4 @@ describe('Realiza teste do componente SearchBar', () => {
     const searchInput = screen.getByTestId(search);
     userEvent.type(searchInput, 'aa');
   });
-  // it('verifica pathname Drinks', () => {
-  //   const { history } = renderWithRouter(<App />);
-
-  //   act(() => { history.push('/drinks'); });
-
-  //   expect(history.location.pathname).toBe('/drinks');
-  // });
 });

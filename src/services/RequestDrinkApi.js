@@ -18,7 +18,7 @@ export async function RequestNameApi(value) {
   }
 }
 
-export async function RquestFirstLetterApi(value) {
+export async function RequestFirstLetterApi(value) {
   try {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${value}`);
     const request = await response.json();
