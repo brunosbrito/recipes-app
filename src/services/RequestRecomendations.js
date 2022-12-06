@@ -1,4 +1,4 @@
-export async function RequestMealsId(id) {
+export async function RequestRecomendationsForMeal(id) {
   try {
     // 52977
     const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
@@ -12,7 +12,7 @@ export async function RequestMealsId(id) {
     console.log(e);
   }
 }
-export async function RequestDrinkId(id) {
+export async function RequestRecomendationsForDrink(id) {
   try {
     const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
     if (!response.ok) {

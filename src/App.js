@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import './App.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './components/Login';
 import Recipes from './components/Recipes';
 import DoneRecipes from './components/DoneRecipes';
@@ -15,10 +15,10 @@ function App() {
   return (
     <RecipesProvider>
       <Switch>
-        <Route path="/meals" component={ Recipes } />
-        <Route path="/drinks" component={ Recipes } />
+        <Route exact path="/meals" component={ Recipes } />
+        <Route exact path="/drinks" component={ Recipes } />
         <Route exact path="/teste" component={ RecipeInProgress } />
-        {/* <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } /> */}
+        <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
         <Route exact path="/meals/:id" component={ RecipeDetails } />
         <Route exact path="/drinks/:id" component={ RecipeDetails } />
         <Route path="/done-recipes" component={ DoneRecipes } />
