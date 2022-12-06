@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
+import {
+  RequestInitialDrinks,
+  RequestInitialMeals } from '../services/RequestInitialRecipes';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
+import Recomendations from './Recomendations';
+import '../CSS/RecipeDetails.css';
 
 export default function RecipeDetails() {
   const history = useHistory();
   const { id } = useParams();
   const [dataMealsArray, setDataMealsArray] = useState([]);
   const [dataDrinkArray, setDataDrinkArray] = useState([]);
+  const { setRecomendations } = useContext(RecipesContext);
 
   const requestDrink = async () => {
     const dataDrink = await RequestDrinkId(id);
@@ -48,11 +55,20 @@ export default function RecipeDetails() {
     return arrayInstructions;
   };
 
+  function getRecomendations() {
+    if (history.location.pathname === `/meals/${id}`) {
+      RequestInitialDrinks()
+        .then((result) => setRecomendations(result));
+    }
+    RequestInitialMeals()
+      .then((result) => setRecomendations(result));
+  }
+
   useEffect(() => {
     checkPathname();
     requestMeals();
     requestDrink();
-    // arrayIngredients();
+    getRecomendations();
   }, []);
 
   return (
@@ -76,7 +92,7 @@ export default function RecipeDetails() {
           {(history.location.pathname === `/meals/${id}`)
           && <p data-testid="recipe-category">{ recipe.strCategory }</p>}
           {(history.location.pathname === `/drinks/${id}`)
-          && <p>{recipe.strAlcoholic}</p>}
+          && <p data-testid="recipe-category">{recipe.strAlcoholic}</p>}
 
         </div>
       ))}
@@ -101,6 +117,15 @@ export default function RecipeDetails() {
 
       {console.log('Array', arrayIngredients())}
 
+      <Recomendations />
+
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start-recipe"
+      >
+        Start Recipe
+      </button>
     </>
   );
 }
