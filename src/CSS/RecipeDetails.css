@@ -2,7 +2,8 @@
   background: #f1f1f1;
   display: flex;
   flex-wrap: nowrap;
-  overflow: hidden;
+  overflow: scroll;
+  margin-bottom: 30px;
 }
 
 .slider-item {
@@ -13,6 +14,7 @@
   min-width: 50%;
   transition: 1s cubic-bezier(0.39, 0.575, 0.565, 1);
   width: 100%;
+  visibility: hidden;
 }
 
 .start-recipe {

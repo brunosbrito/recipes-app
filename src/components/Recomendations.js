@@ -21,7 +21,17 @@ function Recomendations() {
     if (currentIndex === LENGTH - 2) {
       return setCurrentIndex(0);
     }
-    return setCurrentIndex(currentIndex + 1);
+    return setCurrentIndex(currentIndex + 2);
+  };
+
+  const changeVisibility = (index) => {
+    let result;
+    if (currentIndex === index || currentIndex + 1 === index) {
+      result = 'visible';
+    } else {
+      result = 'hidden';
+    }
+    return result;
   };
 
   return (
@@ -32,6 +42,7 @@ function Recomendations() {
           : (
             <>
               <h3>Recomendações</h3>
+              {console.log(sixRecomendations())}
               <button type="button" onClick={ carouselInfinite }>Próxima</button>
               <div className="slider-container">
                 {
@@ -39,8 +50,9 @@ function Recomendations() {
                     <div
                       className="slider-item"
                       key={ index }
-                      data-testid={ `${index}-recommendation-card>` }
-                      style={ { transform: `translate(-${currentIndex * 100}%)` } }
+                      data-testid={ `${index}-recommendation-card` }
+                      style={ { transform: `translate(-${currentIndex * 100}%)`,
+                        visibility: changeVisibility(index) } }
                     >
                       <div>
                         <p data-testid={ `${index}-recommendation-title` }>

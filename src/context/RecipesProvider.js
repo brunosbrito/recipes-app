@@ -33,7 +33,10 @@ function RecipesProvider({ children }) {
       initialRecipes,
       setInitialRecipes,
       categories,
-      setCategories, categoryFilter, setCategoryFilter, recomendations, setRecomendations,
+      setCategories,
+      categoryFilter,
+      setCategoryFilter,
+      recomendations, setRecomendations,
     ],
   );
   return (

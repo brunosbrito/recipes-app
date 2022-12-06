@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+// import RecipesContext from '../context/RecipesContext';
 import '../CSS/RecipeInProgress.css';
 
 function RecipeInProgress() {
@@ -8,6 +9,9 @@ function RecipeInProgress() {
 
   const [disabled, setDisabled] = useState(true);
   const [counter, setCounter] = useState(0);
+  // const { recipesInProgress } = useContext(RecipesContext);
+  const dataRecipe = JSON.parse(localStorage.getItem('recipe'));
+  const { id } = useParams();
 
   // const recipe = [
   //   {
@@ -67,13 +71,13 @@ function RecipeInProgress() {
   //   },
   // ];
 
-  const ingredients = recipe.map((el) => Object.entries(el)
+  const ingredients = dataRecipe.map((el) => Object.entries(el)
     .filter((entry) => entry[0]
       .includes('strIngredient') && entry[1] !== '' && entry[1] !== null))
     .map((arr) => arr.map((el) => el[1]))
     .flat();
 
-  const measures = recipe.map((el) => Object.entries(el)
+  const measures = dataRecipe.map((el) => Object.entries(el)
     .filter((entry) => entry[0]
       .includes('strMeasure') && entry[1] !== ' ' && entry[1] !== null))
     .map((arr) => arr.map((el) => el[1]))
@@ -87,9 +91,25 @@ function RecipeInProgress() {
   const arrayInstructions = Object.entries(objInstructions);
 
   function handleChange({ target }) {
+    console.log(id);
+    const drinks = {
+      drinks: {
+        [id]: [target.className],
+      },
+    };
+    const meals = {
+      meals: {
+        [id]: [target.className],
+      },
+    };
     if (target.checked) {
       target.parentNode.className = 'done';
       setCounter(counter + 1);
+      localStorage.setItem(
+        'inProgressRecipes',
+        JSON.stringify((history.location.pathname === `/meals/${id}/in-progress`)
+          ? [...JSON.parse(localStorage.getItem('inProgressRecipes')), meals] : drinks),
+      );
     } else {
       target.parentNode.className = 'undone';
       setCounter(counter - 1);
@@ -108,26 +128,29 @@ function RecipeInProgress() {
     <>
       <h1>Em progresso</h1>
       {
-        recipe.map((el, index) => (
-          <div key={ index }>
-            <img
-              data-testid="recipe-photo"
-              src={ slug.includes('meals') ? el.strMealThumb : el.strDrinkThumb }
-              alt={ slug.includes('meals') ? el.strMeal : el.strDrink }
-            />
-            <p data-testid="recipe-title">
-              { slug.includes('meals') ? el.strMeal : el.strDrink }
-            </p>
-            <button data-testid="share-btn" type="button">Share</button>
-            <button data-testid="favorite-btn" type="button">Favoritar</button>
-            <p data-testid="recipe-category">
-              { el.strCategory}
-            </p>
-            <p data-testid="instructions">
-              { el.strInstructions }
-            </p>
-          </div>
-        ))
+        (dataRecipe.length === 0)
+          ? <p>carregando...</p> : dataRecipe.map((el, index) => (
+            <div key={ index }>
+              <img
+                style={ {
+                  maxWidth: '200px', maxHeight: '150px', width: 'auto', height: 'auto' } }
+                data-testid="recipe-photo"
+                src={ slug.includes('meals') ? el.strMealThumb : el.strDrinkThumb }
+                alt={ slug.includes('meals') ? el.strMeal : el.strDrink }
+              />
+              <p data-testid="recipe-title">
+                { slug.includes('meals') ? el.strMeal : el.strDrink }
+              </p>
+              <button data-testid="share-btn" type="button">Share</button>
+              <button data-testid="favorite-btn" type="button">Favoritar</button>
+              <p data-testid="recipe-category">
+                { el.strCategory}
+              </p>
+              <p data-testid="instructions">
+                { el.strInstructions }
+              </p>
+            </div>
+          ))
       }
       {
         arrayInstructions.map((ingredient, index) => (
@@ -137,6 +160,7 @@ function RecipeInProgress() {
               htmlFor={ ingredient[0] }
             >
               <input
+                className={ index }
                 type="checkbox"
                 name={ ingredient[0] }
                 id={ ingredient[0] }

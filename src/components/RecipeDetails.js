@@ -14,6 +14,7 @@ export default function RecipeDetails() {
   const [dataMealsArray, setDataMealsArray] = useState([]);
   const [dataDrinkArray, setDataDrinkArray] = useState([]);
   const { setRecomendations } = useContext(RecipesContext);
+  const url = history.location.pathname;
 
   const requestDrink = async () => {
     const dataDrink = await RequestDrinkId(id);
@@ -59,16 +60,29 @@ export default function RecipeDetails() {
     if (history.location.pathname === `/meals/${id}`) {
       RequestInitialDrinks()
         .then((result) => setRecomendations(result));
+    } else {
+      RequestInitialMeals()
+        .then((result) => setRecomendations(result));
     }
-    RequestInitialMeals()
-      .then((result) => setRecomendations(result));
   }
+
+  const startRecipe = () => {
+    // setRecipesInProgress(checkPathname);
+    localStorage.setItem(
+      'recipe',
+      JSON.stringify([...checkPathname(), checkPathname()]),
+    );
+    history.push(`${url}/in-progress`);
+  };
+
+  useEffect(() => {
+    getRecomendations();
+  }, [id]);
 
   useEffect(() => {
     checkPathname();
     requestMeals();
     requestDrink();
-    getRecomendations();
   }, []);
 
   return (
@@ -123,6 +137,7 @@ export default function RecipeDetails() {
         type="button"
         data-testid="start-recipe-btn"
         className="start-recipe"
+        onClick={ startRecipe }
       >
         Start Recipe
       </button>
