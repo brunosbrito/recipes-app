@@ -2,7 +2,8 @@
   background: #f1f1f1;
   display: flex;
   flex-wrap: nowrap;
-  overflow: hidden;
+  margin-bottom: 30px;
+  overflow: scroll;
 }
 
 .slider-item {
@@ -12,6 +13,7 @@
   justify-content: center;
   min-width: 50%;
   transition: 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+  visibility: hidden;
   width: 100%;
 }
 

@@ -14,6 +14,7 @@ export default function RecipeDetails() {
   const [dataMealsArray, setDataMealsArray] = useState([]);
   const [dataDrinkArray, setDataDrinkArray] = useState([]);
   const { setRecomendations } = useContext(RecipesContext);
+  const url = history.location.pathname;
 
   const requestDrink = async () => {
     const dataDrink = await RequestDrinkId(id);
@@ -59,17 +60,84 @@ export default function RecipeDetails() {
     if (history.location.pathname === `/meals/${id}`) {
       RequestInitialDrinks()
         .then((result) => setRecomendations(result));
+    } else {
+      RequestInitialMeals()
+        .then((result) => setRecomendations(result));
     }
-    RequestInitialMeals()
-      .then((result) => setRecomendations(result));
   }
+
+  const startRecipe = () => {
+    // setRecipesInProgress(checkPathname());
+    localStorage.setItem(
+      'recipe',
+      JSON.stringify(checkPathname()),
+    );
+    history.push(`${url}/in-progress`);
+  };
+
+  useEffect(() => {
+    getRecomendations();
+  }, [id]);
 
   useEffect(() => {
     checkPathname();
     requestMeals();
     requestDrink();
-    getRecomendations();
   }, []);
+
+  const btnStart = (
+    <button
+      type="button"
+      data-testid="start-recipe-btn"
+      className="start-recipe"
+      onClick={ startRecipe }
+    >
+      Start Recipe
+    </button>
+  );
+  const btnContinue = (
+    <button
+      type="button"
+      data-testid="start-recipe-btn"
+      className="start-recipe"
+      onClick={ startRecipe }
+    >
+      Continue Recipe
+    </button>
+  );
+
+  const complete = (JSON.parse(localStorage.getItem('doneRecipes')));
+  const buttonProgress = (complete !== null)
+    ? ((complete[0].id !== id) && btnStart)
+    : btnStart;
+
+  const checkProgress = () => {
+    const progressRecipes = (JSON.parse(localStorage.getItem('inProgressRecipes')));
+    if (url.includes('meals')) {
+      let mealsId = [];
+      if (progressRecipes !== null) {
+        const { meals } = progressRecipes;
+        mealsId = Object.keys(meals);
+        return mealsId;
+      }
+      return mealsId;
+    }
+    if (url.includes('drinks')) {
+      let drinksId = [];
+      const { drinks } = progressRecipes;
+      if (drinks !== undefined) {
+        drinksId = Object.keys(drinks);
+        return drinksId;
+      }
+      return drinksId;
+    }
+  };
+  console.log(checkProgress());
+  const progressRecipes = (JSON.parse(localStorage.getItem('inProgressRecipes')));
+
+  const verificProgress = (checkProgress().includes(id.toString()))
+    ? ((progressRecipes !== 0) && btnContinue)
+    : btnStart;
 
   return (
     <>
@@ -118,14 +186,8 @@ export default function RecipeDetails() {
       {console.log('Array', arrayIngredients())}
 
       <Recomendations />
+      {(complete === null) ? verificProgress : buttonProgress}
 
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="start-recipe"
-      >
-        Start Recipe
-      </button>
     </>
   );
 }
