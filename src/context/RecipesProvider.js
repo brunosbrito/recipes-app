@@ -9,6 +9,7 @@ function RecipesProvider({ children }) {
   const [categories, setCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
+  const [recipeInprogress, setRecipesInProgress] = useState([]);
 
   const value = useMemo(
     () => ({
@@ -24,6 +25,8 @@ function RecipesProvider({ children }) {
       setCategoryFilter,
       recomendations,
       setRecomendations,
+      recipeInprogress,
+      setRecipesInProgress,
     }),
     [
       data,
@@ -37,6 +40,7 @@ function RecipesProvider({ children }) {
       categoryFilter,
       setCategoryFilter,
       recomendations, setRecomendations,
+      recipeInprogress, setRecipesInProgress,
     ],
   );
   return (
