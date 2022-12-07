@@ -75,21 +75,25 @@ function RecipeInProgress() {
     }
   }
 
-  // const handleCheck = () => {
-  //   console.log('estou aqui');
-  //   if (JSON.parse(localStorage.getItem('inProgressRecipes')) !== null) {
-  //     console.log('estou aqui');
-  //     if (history.location.pathname === `/meals/${id}/in-progress`) {
-  //       const teste = JSON.parse(localStorage.getItem('inProgressRecipes'))
-  //         .meals[id].includes(index);
-  //       console.log(teste);
-  //     }
-  //     const teste1 = JSON.parse(localStorage.getItem('inProgressRecipes'))
-  //       .drinks[id].includes(index);
-  //     console.log(teste1);
-  //   }
-  //   console.log('não entrou');
-  // };
+  const handleclick = () => {
+    const recipe = [{
+      id,
+      type: ((history.location.pathname === `/meals/${id}/in-progress`))
+        ? 'meal' : 'drink',
+      nationality: '',
+      category: '',
+      alcoholicOrNot: '',
+      name: '',
+      Image: '',
+      doneData: '',
+      tags: [],
+    }];
+
+    localStorage.setItem('doneRecipes', JSON.stringify(recipe));
+
+    history.push('/done-recipes');
+    console.log(recipe);
+  };
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('inProgressRecipes')) !== null) {
@@ -153,7 +157,7 @@ function RecipeInProgress() {
               htmlFor={ ingredient[0] }
             >
               <input
-                checked={ arrayId.includes(index.toString()) }
+                checked={ arrayId?.includes(index.toString()) }
                 className={ index }
                 type="checkbox"
                 name={ ingredient[0] }
@@ -171,7 +175,7 @@ function RecipeInProgress() {
         data-testid="finish-recipe-btn"
         type="button"
         disabled={ disabled }
-        onClick={ () => history.push('/done-recipes') }
+        onClick={ handleclick }
       >
         Finish Recipe
       </button>
