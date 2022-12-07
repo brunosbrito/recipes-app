@@ -4,7 +4,6 @@
   flex-wrap: nowrap;
   margin-bottom: 30px;
   overflow: scroll;
-  
 }
 
 .slider-item {
@@ -16,7 +15,6 @@
   transition: 1s cubic-bezier(0.39, 0.575, 0.565, 1);
   visibility: hidden;
   width: 100%;
-  
 }
 
 .start-recipe {
