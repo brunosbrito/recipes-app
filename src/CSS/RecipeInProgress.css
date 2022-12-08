@@ -1,4 +1,4 @@
-.styled-label:has(:checked) {
+.styled-label:has( :checked ) {
   text-decoration: line-through solid black;
 }
 
