@@ -1,13 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import Header from './Header';
 import RecipesContext from '../context/RecipesContext';
 
 function DoneRecipes() {
   const data = JSON.parse(localStorage.getItem('doneRecipes'));
-  const history = useHistory();
   const { btnCopy, setBtnCopy } = useContext(RecipesContext);
   const [search, setSearch] = useState([]);
 

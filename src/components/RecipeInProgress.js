@@ -37,7 +37,6 @@ function RecipeInProgress() {
     }
   }, [id, history]);
 
-
   const ingredients = arrayRecipe.map((el) => Object.entries(el)
     .filter((entry) => entry[0]
       .includes('strIngredient') && entry[1] !== '' && entry[1] !== null))
