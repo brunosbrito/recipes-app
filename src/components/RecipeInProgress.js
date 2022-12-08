@@ -3,6 +3,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import '../CSS/RecipeInProgress.css';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
+import FavBtn from './FavBtn';
+import ShareBtn from './ShareBtn';
 
 function RecipeInProgress() {
   const history = useHistory();
@@ -11,7 +13,7 @@ function RecipeInProgress() {
   // const [disabled, setDisabled] = useState(true);
   // const [counter, setCounter] = useState(0);
   // const dataRecipe = JSON.parse(localStorage.getItem('recipe'));
-  const { recipeInprogress } = useContext(RecipesContext);
+  const { recipeInprogress, setArray } = useContext(RecipesContext);
   const { id } = useParams();
   const [arrayRecipe, setArrayRecipe] = useState([]);
   // const [arrayId, setArrayId] = useState([]);
@@ -20,6 +22,15 @@ function RecipeInProgress() {
     meals: {},
   });
 
+  function recipeArray() {
+    if (history.location.pathname === `/meals/${id}/in-progress`) {
+      return arrayRecipe;
+    }
+    return arrayRecipe;
+  }
+  useEffect(() => {
+    setArray(recipeArray());
+  });
   useEffect(() => {
     if ((history.location.pathname === `/drinks/${id}/in-progress`)) {
       const requestDrink = async () => {
@@ -35,15 +46,6 @@ function RecipeInProgress() {
       requestMeals();
     }
   }, [id]);
-
-  function recipeArray() {
-    if (history.location.pathname === `/meals/${id}/in-progress`) {
-      return arrayRecipe;
-    }
-    return arrayRecipe;
-  }
-
-  console.log(arrayRecipe);
 
   const ingredients = recipeArray().map((el) => Object.entries(el)
     .filter((entry) => entry[0]
@@ -185,8 +187,8 @@ function RecipeInProgress() {
               <p data-testid="recipe-title">
                 { slug.includes('meals') ? el.strMeal : el.strDrink }
               </p>
-              <button data-testid="share-btn" type="button">Share</button>
-              <button data-testid="favorite-btn" type="button">Favoritar</button>
+              <ShareBtn />
+              <FavBtn />
               <p data-testid="recipe-category">
                 { el.strCategory}
               </p>
