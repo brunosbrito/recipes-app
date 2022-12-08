@@ -97,7 +97,7 @@ function RecipeInProgress() {
       const array = key.split(',');
       return array;
     }
-    return [...key];
+    return [key];
   }
 
   const handleclick = () => {

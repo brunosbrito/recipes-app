@@ -1,24 +1,28 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import Header from './Header';
-import RecipesContext from '../context/RecipesContext';
 
 function DoneRecipes() {
   const data = JSON.parse(localStorage.getItem('doneRecipes'));
-  const { btnCopy, setBtnCopy } = useContext(RecipesContext);
+  const [btnCopy, setBtnCopy] = useState();
   const [search, setSearch] = useState([]);
 
-  const handleFilter = () => {
-    const mealFilter = search.filter((el) => el.type === 'meal');
-    const drinkFilter = search.filter((el) => el.type === 'drink');
+  const handleFilterMeal = () => {
+    const mealFilter = search.filter((el) => (el.type === 'meal'));
+    console.log(mealFilter);
+    setSearch(mealFilter);
+  };
 
-    if (mealFilter) {
-      setSearch(mealFilter);
-    } else if (drinkFilter) {
-      setSearch(drinkFilter);
-    }
+  const handleFilterDrink = () => {
+    const drinkFilter = search.filter((el) => (el.type === 'drink'));
+    console.log(drinkFilter);
+    setSearch(drinkFilter);
+  };
+
+  const handleFilterAll = () => {
+    setSearch(data);
   };
 
   useEffect(() => {
@@ -31,6 +35,7 @@ function DoneRecipes() {
       <button
         type="button"
         data-testid="filter-by-all-btn"
+        onClick={ handleFilterAll }
       >
         All
 
@@ -39,7 +44,7 @@ function DoneRecipes() {
       <button
         type="button"
         data-testid="filter-by-meal-btn"
-        onClick={ handleFilter }
+        onClick={ handleFilterMeal }
       >
         Meals
 
@@ -48,7 +53,7 @@ function DoneRecipes() {
       <button
         type="button"
         data-testid="filter-by-drink-btn"
-        onClick={ handleFilter }
+        onClick={ handleFilterDrink }
       >
         Drinks
 
@@ -57,8 +62,14 @@ function DoneRecipes() {
       {console.log('DoneRecipes', (data))}
       {search !== null && search.map((el, index) => (
         <div key={ index }>
-          <Link to={ `http://localhost:3000/${`${el.type}s`}/${el.id}` }>
+          <Link to={ `/${`${el.type}s`}/${el.id}` }>
             <img
+              style={ {
+                maxWidth: '200px',
+                maxHeight: '150px',
+                width: 'auto',
+                height: 'auto',
+              } }
               src={ el.image }
               key={ index }
               alt={ el.name }
