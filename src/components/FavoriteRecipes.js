@@ -71,7 +71,7 @@ function FavoriteRecipes() {
       </button>
       {(btnCopy === true) ? <p>Link copied!</p> : null}
       {
-        filteredRecipes.map((el, index) => {
+        filteredRecipes?.map((el, index) => {
           if (el.type === 'meal') {
             return (
               <div id={ el.id }>

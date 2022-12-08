@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 import '../CSS/RecipeInProgress.css';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 import FavBtn from './FavBtn';
 import ShareBtn from './ShareBtn';
 
 function RecipeInProgress() {
+  const { setArray } = useContext(RecipesContext);
   const { id } = useParams();
   const history = useHistory();
   const slug = history.location.pathname;
@@ -16,14 +18,8 @@ function RecipeInProgress() {
     || JSON.parse(localStorage.getItem('inProgressRecipes'))?.drinks[id] || [],
   );
 
-  function recipeArray() {
-    if (history.location.pathname === `/meals/${id}/in-progress`) {
-      return arrayRecipe;
-    }
-    return arrayRecipe;
-  }
   useEffect(() => {
-    setArray(recipeArray());
+    setArray(arrayRecipe);
   });
   useEffect(() => {
     if ((history.location.pathname === `/drinks/${id}/in-progress`)) {
