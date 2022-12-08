@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import copy from 'clipboard-copy';
+
 import RecipesContext from '../context/RecipesContext';
 import {
   RequestInitialDrinks,
@@ -8,44 +8,16 @@ import {
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 import Recomendations from './Recomendations';
 import '../CSS/RecipeDetails.css';
-import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.svg';
+import ShareBtn from './ShareBtn';
+import FavBtn from './FavBtn';
 
 export default function RecipeDetails() {
   const history = useHistory();
   const { id } = useParams();
   const [dataMealsArray, setDataMealsArray] = useState([]);
   const [dataDrinkArray, setDataDrinkArray] = useState([]);
-  const [btnCopy, setBtnCopy] = useState(false);
-  const [localHeart, setLocalheart] = useState(false);
   const { setRecomendations } = useContext(RecipesContext);
   const url = history.location.pathname;
-
-  const saveFavorites = (recipe) => {
-    const obj = {
-      id: recipe.idMeal || recipe.idDrink,
-      type: url.includes('meals') ? 'meal' : 'drink',
-      nationality: recipe.strArea || '',
-      category: recipe.strCategory,
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      name: recipe.strMeal || recipe.strDrink,
-      image: recipe.strMealThumb || recipe.strDrinkThumb,
-    };
-
-    const favoritesLocal = (JSON.parse(localStorage.getItem('favoriteRecipes')));
-    const newfavoritesLocal = (favoritesLocal === null)
-      ? [obj] : [...favoritesLocal, obj];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newfavoritesLocal));
-    favoritesLocal.forEach((e) => {
-      if (e.id !== id) {
-        localStorage.setItem('favoriteRecipes', JSON.stringify(newfavoritesLocal));
-      } else {
-        const filtro = favoritesLocal.filter((el) => el.id !== id);
-        localStorage.setItem('favoriteRecipes', JSON.stringify(filtro));
-        setLocalheart(false);
-      }
-    });
-  };
 
   const requestDrink = async () => {
     const dataDrink = await RequestDrinkId(id);
@@ -164,17 +136,6 @@ export default function RecipeDetails() {
     ? ((progressRecipes !== 0) && btnContinue)
     : btnStart;
 
-  useEffect(() => {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (!favoriteRecipes) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    }
-    if (favoriteRecipes !== null) {
-      const fav = favoriteRecipes.some((el) => el.id === id);
-      setLocalheart(fav);
-    }
-  }, [id]);
-
   return (
     <>
       {checkPathname().map((recipe, index) => (
@@ -218,31 +179,8 @@ export default function RecipeDetails() {
           <iframe data-testid="video" title="video receita" src={ int.strYoutube } />
         </div>
       ))}
-
-      <div>
-        <button
-          data-testid="share-btn"
-          type="button"
-          onClick={ () => {
-            copy(`http://localhost:3000${url}`);
-            setBtnCopy(true);
-          } }
-        >
-          compartilhar
-        </button>
-        <button
-          data-testid="favorite-btn"
-          type="submit"
-          src={ localHeart ? blackHeart : whiteHeart }
-          onClick={ () => {
-            saveFavorites(checkPathname()[0]);
-            setLocalheart((!localHeart));
-          } }
-        >
-          <img src={ localHeart ? blackHeart : whiteHeart } alt="coração" />
-        </button>
-      </div>
-      {(btnCopy === true) && <p>Link copied!</p>}
+      <FavBtn />
+      <ShareBtn />
       <Recomendations />
       {(complete === null) ? verificProgress : buttonProgress}
     </>
