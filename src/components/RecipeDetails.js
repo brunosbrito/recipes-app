@@ -16,7 +16,7 @@ export default function RecipeDetails() {
   const { id } = useParams();
   const [dataMealsArray, setDataMealsArray] = useState([]);
   const [dataDrinkArray, setDataDrinkArray] = useState([]);
-  const [btnCopy, setBtnCopy] = useState(false);
+  const { btnCopy, setBtnCopy } = useContext(RecipesContext);
   const [heart, setHeart] = useState(false);
   const { setRecomendations } = useContext(RecipesContext);
   const url = history.location.pathname;
@@ -32,7 +32,7 @@ export default function RecipeDetails() {
       image: recipe.strMealThumb || recipe.strDrinkThumb,
     };
     const favoritesLocal = (JSON.parse(localStorage.getItem('favoriteRecipes')));
-    console.log(favoritesLocal);
+    // console.log(favoritesLocal);
     const newfavoritesLocal = favoritesLocal === null
       ? [obj] : [...favoritesLocal, obj];
     localStorage.setItem('favoriteRecipes', JSON.stringify(newfavoritesLocal));
@@ -88,7 +88,7 @@ export default function RecipeDetails() {
     }
   }
 
-  console.log(checkPathname());
+  // console.log(checkPathname());
 
   const startRecipe = () => {
     history.push(`${url}/in-progress`);
@@ -159,7 +159,7 @@ export default function RecipeDetails() {
 
   const handleClickFavorite = () => {
     const fav = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(fav[0].id);
+    // console.log(fav[0].id);
 
     fav.forEach((e) => {
       e.id.includes(id);

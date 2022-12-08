@@ -43,7 +43,7 @@ function RecipeInProgress() {
     return arrayRecipe;
   }
 
-  console.log(arrayRecipe);
+  // console.log(arrayRecipe);
 
   const ingredients = recipeArray().map((el) => Object.entries(el)
     .filter((entry) => entry[0]
@@ -112,6 +112,7 @@ function RecipeInProgress() {
   }
 
   const handleclick = () => {
+    console.log('recipeInprogress', recipeInprogress);
     const recipe = [{
       id,
       type: ((history.location.pathname === `/meals/${id}/in-progress`))
@@ -120,12 +121,12 @@ function RecipeInProgress() {
       category: '',
       alcoholicOrNot: '',
       name: '',
-      Image: '',
-      doneData: '',
+      image: '',
+      doneDate: '',
       tags: [],
     }];
 
-    localStorage.setItem('doneRecipes', JSON.stringify(recipe));
+    localStorage.setItem('doneRecipes', JSON.stringify([...recipe, recipe]));
 
     history.push('/done-recipes');
   };
@@ -142,7 +143,7 @@ function RecipeInProgress() {
   //   }
   // }, []);
 
-  console.log(recipeInprogress);
+  // console.log(recipeInprogress);
 
   useEffect(() => () => {
     setCurrentRecipe((slug.includes('meals')

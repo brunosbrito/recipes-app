@@ -42,7 +42,7 @@ function Recomendations() {
           : (
             <>
               <h3>Recomendações</h3>
-              {console.log(sixRecomendations())}
+              {/* {console.log(sixRecomendations())} */}
               <button type="button" onClick={ carouselInfinite }>Próxima</button>
               <div className="slider-container">
                 {
