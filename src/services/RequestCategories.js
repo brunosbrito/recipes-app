@@ -2,7 +2,7 @@ export async function RequestMealsCategories() {
   try {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     const request = await response.json();
-    console.log('req', request.meals);
+    // console.log('req', request.meals);
     return request.meals;
   } catch (e) {
     throw new Error(e.message);

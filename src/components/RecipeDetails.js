@@ -16,8 +16,26 @@ export default function RecipeDetails() {
   const { id } = useParams();
   const [dataMealsArray, setDataMealsArray] = useState([]);
   const [dataDrinkArray, setDataDrinkArray] = useState([]);
+  const [heart, setHeart] = useState(false);
   const { setRecomendations } = useContext(RecipesContext);
   const url = history.location.pathname;
+
+  const saveFavorites = (recipe) => {
+    const obj = {
+      id: recipe.idMeal || recipe.idDrink,
+      type: url.includes('meals') ? 'meal' : 'drink',
+      nationality: recipe.strArea || '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      name: recipe.strMeal || recipe.strDrink,
+      image: recipe.strMealThumb || recipe.strDrinkThumb,
+    };
+    const favoritesLocal = (JSON.parse(localStorage.getItem('favoriteRecipes')));
+    // console.log(favoritesLocal);
+    const newfavoritesLocal = favoritesLocal === null
+      ? [obj] : [...favoritesLocal, obj];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newfavoritesLocal));
+  };
 
   const requestDrink = async () => {
     const dataDrink = await RequestDrinkId(id);
@@ -135,6 +153,16 @@ export default function RecipeDetails() {
   const verificProgress = (checkProgress().includes(id.toString()))
     ? ((progressRecipes !== 0) && btnContinue)
     : btnStart;
+
+  const handleClickFavorite = () => {
+    const fav = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    // console.log(fav[0].id);
+
+    fav.forEach((e) => {
+      e.id.includes(id);
+      setHeart(true);
+    });
+  };
 
   return (
     <>
