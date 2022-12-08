@@ -38,7 +38,6 @@ function Recipes() {
 
   return (
     <>
-      <button type="button" onClick={ () => history.push('/teste') }>teste</button>
       <Header />
       {!categories.length > 0
         ? <h2>Carregando...</h2>

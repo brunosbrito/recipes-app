@@ -1,24 +1,19 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import RecipesContext from '../context/RecipesContext';
 import '../CSS/RecipeInProgress.css';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 
 function RecipeInProgress() {
+  const { id } = useParams();
   const history = useHistory();
   const slug = history.location.pathname;
 
-  // const [disabled, setDisabled] = useState(true);
-  // const [counter, setCounter] = useState(0);
-  // const dataRecipe = JSON.parse(localStorage.getItem('recipe'));
-  const { recipeInprogress } = useContext(RecipesContext);
-  const { id } = useParams();
+  const [disabled, setDisabled] = useState(true);
   const [arrayRecipe, setArrayRecipe] = useState([]);
-  // const [arrayId, setArrayId] = useState([]);
-  const [currentRecipe, setCurrentRecipe] = useState({
-    drinks: {},
-    meals: {},
-  });
+  const [ingredientsCheck, setIngredientsCheck] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes'))?.meals[id]
+    || JSON.parse(localStorage.getItem('inProgressRecipes'))?.drinks[id] || [],
+  );
 
   useEffect(() => {
     if ((history.location.pathname === `/drinks/${id}/in-progress`)) {
@@ -34,24 +29,16 @@ function RecipeInProgress() {
       };
       requestMeals();
     }
-  }, [id]);
+  }, [id, history]);
 
-  function recipeArray() {
-    if (history.location.pathname === `/meals/${id}/in-progress`) {
-      return arrayRecipe;
-    }
-    return arrayRecipe;
-  }
 
-  // console.log(arrayRecipe);
-
-  const ingredients = recipeArray().map((el) => Object.entries(el)
+  const ingredients = arrayRecipe.map((el) => Object.entries(el)
     .filter((entry) => entry[0]
       .includes('strIngredient') && entry[1] !== '' && entry[1] !== null))
     .map((arr) => arr.map((el) => el[1]))
     .flat();
 
-  const measures = recipeArray().map((el) => Object.entries(el)
+  const measures = arrayRecipe.map((el) => Object.entries(el)
     .filter((entry) => entry[0]
       .includes('strMeasure') && entry[1] !== ' ' && entry[1] !== null))
     .map((arr) => arr.map((el) => el[1]))
@@ -63,118 +50,108 @@ function RecipeInProgress() {
   });
 
   const arrayInstructions = Object.entries(objInstructions);
-  let ingredientsCheck = [];
-  function handleChange({ target }) {
-    if (target.checked) {
-      target.parentNode.className = 'done';
 
-      // setCounter(counter + 1);
-      ingredientsCheck = [...ingredientsCheck, target.className];
-      // const ingredientsSalve = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      // console.log(ingredientsSalve);
-      // // ingredientsSalve.meals[id] = [...ingredientsCheck, target.className];
-      // // localStorage.setItem('inProgressRecipes', JSON.stringify(ingredientsSalve));
-      // const drinks = {
-
-      //   [id]: [...ingredientsCheck, target.className],
-      // };
-
-      // ingredientsSalve.meals = {
-      //   [id]: [...ingredientsCheck, target.className],
-
-      // };
-      // localStorage.setItem(
-      //   'inProgressRecipes',
-      //   JSON.stringify((history.location.pathname === `/meals/${id}/in-progress`)
-      //     ? { ...JSON.parse(localStorage.getItem('inProgressRecipes')), ingredientsSalve }
-      //     : { ...JSON.parse(localStorage.getItem('inProgressRecipes')), drinks }),
-      // );
+  function addToProgressLocal(value) {
+    const obj = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (history.location.pathname.includes('meals')) {
+      const newObj = {
+        ...obj,
+        meals: {
+          ...obj.meals,
+          [id]: value,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
     } else {
-      target.parentNode.className = 'undone';
-      // setCounter(counter - 1);
-      // const drinks = {
-      //   [id]: ingredientsCheck.filter((ingredient) => ingredient !== target.className),
-      // };
-
-      // const meals = {
-      //   [id]: ingredientsCheck.filter((ingredient) => ingredient !== target.className),
-
-      // };
-      // setIngredientsCheck(ingredientsCheck
-      //   .filter((ingredient) => ingredient !== target.className));
-      // localStorage.setItem(
-      //   'inProgressRecipes',
-      //   JSON.stringify((history.location.pathname === `/meals/${id}/in-progress`)
-      //     ? { ...JSON.parse(localStorage.getItem('inProgressRecipes')), meals }
-      //     : { ...JSON.parse(localStorage.getItem('inProgressRecipes')), drinks }),
-      // );
+      const newObj = {
+        ...obj,
+        drinks: {
+          ...obj.drinks,
+          [id]: value,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newObj));
     }
   }
 
+  function handleChange({ target }) {
+    if (target.checked) {
+      const addArray = [...ingredientsCheck, target.className];
+      setIngredientsCheck(addArray);
+      addToProgressLocal(addArray);
+      console.log(arrayRecipe);
+    } else {
+      const subArray = ingredientsCheck.filter((e) => e !== target.className);
+      setIngredientsCheck(subArray);
+      addToProgressLocal(subArray);
+    }
+  }
+
+  function handleArrayTags(key) {
+    if (key.includes(',')) {
+      const array = key.split(',');
+      return array;
+    }
+    return [...key];
+  }
+
   const handleclick = () => {
-    console.log('recipeInprogress', recipeInprogress);
-    const recipe = [{
+    if (localStorage.getItem('doneRecipes') === null) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+    const recipe = {
       id,
       type: ((history.location.pathname === `/meals/${id}/in-progress`))
         ? 'meal' : 'drink',
-      nationality: '',
-      category: '',
-      alcoholicOrNot: '',
-      name: '',
-      image: '',
-      doneDate: '',
-      tags: [],
-    }];
+      nationality: ((history.location.pathname === `/meals/${id}/in-progress`))
+        ? arrayRecipe[0].strArea : '',
+      category: arrayRecipe[0].strCategory,
+      alcoholicOrNot: ((history.location.pathname === `/meals/${id}/in-progress`))
+        ? '' : arrayRecipe[0].strAlcoholic,
+      name: ((history.location.pathname === `/meals/${id}/in-progress`))
+        ? arrayRecipe[0].strMeal : arrayRecipe[0].strDrink,
+      image: ((history.location.pathname === `/meals/${id}/in-progress`))
+        ? arrayRecipe[0].strMealThumb : arrayRecipe[0].strDrinkThumb,
+      doneDate: new Date().toISOString(),
+      tags: ((history.location.pathname === `/meals/${id}/in-progress`))
+        ? handleArrayTags(arrayRecipe[0].strTags) : [],
+    };
 
-    localStorage.setItem('doneRecipes', JSON.stringify([...recipe, recipe]));
+    const newDone = [
+      ...JSON.parse(localStorage.getItem('doneRecipes')),
+      recipe,
+    ];
+
+    localStorage.setItem('doneRecipes', JSON.stringify(newDone));
 
     history.push('/done-recipes');
   };
 
-  // useEffect(() => {
-  //   if (JSON.parse(localStorage.getItem('inProgressRecipes')) !== null) {
-  //     if (history.location.pathname === `/meals/${id}/in-progress`) {
-  //       setArrayId(JSON.parse(localStorage.getItem('inProgressRecipes'))
-  //         .meals[id]);
-  //     } else {
-  //       setArrayId(JSON.parse(localStorage.getItem('inProgressRecipes'))
-  //         .drinks[id]);
-  //     }
-  //   }
-  // }, []);
-
-  // console.log(recipeInprogress);
-
-  useEffect(() => () => {
-    setCurrentRecipe((slug.includes('meals')
-      ? (currentRecipe.meals[id] = ingredientsCheck)
-      : (currentRecipe.drinks[id] = ingredientsCheck)));
-    const getIngredientsCheck = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const { drinks, meals } = currentRecipe;
-    if (getIngredientsCheck === null) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(currentRecipe));
+  useEffect(() => {
+    if (ingredientsCheck.length === arrayInstructions.length) {
+      setDisabled(false);
     } else {
-      getIngredientsCheck.drinks[id] = drinks[id];
-      getIngredientsCheck.meals[id] = meals[id];
-
-      localStorage.setItem('inProgressRecipes', JSON.stringify(getIngredientsCheck));
+      setDisabled(true);
     }
-  }, []);
+  }, [ingredientsCheck, arrayInstructions]);
 
-  // useEffect(() => {
-  //   if (counter === arrayInstructions.length) {
-  //     setDisabled(false);
-  //   } else {
-  //     setDisabled(true);
-  //   }
-  // }, [counter, arrayInstructions]);
+  function startLocal() {
+    if (localStorage.getItem('inProgressRecipes') === null) {
+      return localStorage.setItem('inProgressRecipes', JSON.stringify({
+        drinks: {},
+        meals: {},
+      }));
+    }
+  }
 
   return (
     <>
+      {startLocal()}
+
       <h1>Em progresso</h1>
       {
-        (recipeArray().length === 0)
-          ? <p>carregando...</p> : recipeArray().map((el, index) => (
+        (arrayRecipe.length === 0)
+          ? <p>carregando...</p> : arrayRecipe.map((el, index) => (
             <div key={ index }>
               <img
                 style={ {
@@ -203,15 +180,15 @@ function RecipeInProgress() {
             <label
               data-testid={ `${index}-ingredient-step` }
               htmlFor={ ingredient[0] }
+              className="styled-label"
             >
               <input
-                // checked={ arrayId?.includes(index.toString()) }
+                defaultChecked={ ingredientsCheck.includes(index.toString()) }
                 className={ index }
                 type="checkbox"
                 name={ ingredient[0] }
                 id={ ingredient[0] }
                 onChange={ handleChange }
-                // autoComplete="off"
               />
               {ingredient.join(', ')}
             </label>
@@ -222,13 +199,12 @@ function RecipeInProgress() {
       <button
         data-testid="finish-recipe-btn"
         type="button"
-        // disabled={ disabled }
+        disabled={ disabled }
         onClick={ handleclick }
       >
         Finish Recipe
       </button>
     </>
-
   );
 }
 
