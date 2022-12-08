@@ -16,7 +16,6 @@ export default function RecipeDetails() {
   const { id } = useParams();
   const [dataMealsArray, setDataMealsArray] = useState([]);
   const [dataDrinkArray, setDataDrinkArray] = useState([]);
-  const { btnCopy, setBtnCopy } = useContext(RecipesContext);
   const [heart, setHeart] = useState(false);
   const { setRecomendations } = useContext(RecipesContext);
   const url = history.location.pathname;
@@ -37,7 +36,6 @@ export default function RecipeDetails() {
       ? [obj] : [...favoritesLocal, obj];
     localStorage.setItem('favoriteRecipes', JSON.stringify(newfavoritesLocal));
   };
-
 
   const requestDrink = async () => {
     const dataDrink = await RequestDrinkId(id);
@@ -165,7 +163,6 @@ export default function RecipeDetails() {
       setHeart(true);
     });
   };
-
 
   return (
     <>
