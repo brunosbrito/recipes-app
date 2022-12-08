@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import blackHeart from '../images/blackHeartIcon.svg';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
+import RecipesContext from '../context/RecipesContext';
 
 function FavBtn() {
   const history = useHistory();
@@ -11,6 +12,7 @@ function FavBtn() {
   const [localHeart, setLocalheart] = useState(false);
   const [dataMealsArray, setDataMealsArray] = useState([]);
   const [dataDrinkArray, setDataDrinkArray] = useState([]);
+  const { array } = useContext(RecipesContext);
 
   const requestDrink = async () => {
     const dataDrink = await RequestDrinkId(id);
@@ -71,7 +73,7 @@ function FavBtn() {
     requestMeals();
     requestDrink();
   }, []);
-
+  console.log(array);
   return (
     <div>
       <button
@@ -79,7 +81,7 @@ function FavBtn() {
         type="submit"
         src={ localHeart ? blackHeart : whiteHeart }
         onClick={ () => {
-          saveFavorites(checkPathname()[0]);
+          saveFavorites(checkPathname() == null ? array[0] : checkPathname()[0]);
           setLocalheart((!localHeart));
         } }
       >
