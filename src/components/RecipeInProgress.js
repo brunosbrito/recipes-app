@@ -84,7 +84,6 @@ function RecipeInProgress() {
       const addArray = [...ingredientsCheck, target.className];
       setIngredientsCheck(addArray);
       addToProgressLocal(addArray);
-      console.log(arrayRecipe);
     } else {
       const subArray = ingredientsCheck.filter((e) => e !== target.className);
       setIngredientsCheck(subArray);

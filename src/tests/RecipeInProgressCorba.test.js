@@ -42,16 +42,14 @@ describe('Testando o componente RecipeInProgress usando o mock Corba', () => {
     await waitFor(() => {
       for (let index = 0; index < 13; index += 1) {
         const ingredients = screen.getByTestId(`${index}-ingredient-step`);
+        userEvent.click(ingredients);
         expect(ingredients).toBeInTheDocument();
       }
     });
 
-    // for (let index = 0; index < 13; index += 1) {
-    //   const ingredients = screen.getByTestId(`${index}-ingredient-step`);
-    //   expect(ingredients).toBeInTheDocument();
-    // }
-
     const finishBtn = screen.getByTestId('finish-recipe-btn');
     expect(finishBtn).toBeInTheDocument();
+    userEvent.click(finishBtn);
+    expect(history.location.pathname).toBe('/done-recipes');
   });
 });
