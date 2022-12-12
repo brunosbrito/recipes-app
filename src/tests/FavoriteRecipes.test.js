@@ -53,8 +53,8 @@ describe('Testando o componente FavoriteRecipes', () => {
     const title = screen.getByTestId('page-title');
     expect(title).toHaveTextContent('Favorite Recipes');
 
-    const mealsFilterBtn = screen.getByTestId('filter-by-meal-btn');
-    userEvent.click(mealsFilterBtn);
+    const mealFilterBtn = screen.getByTestId('filter-by-meal-btn');
+    userEvent.click(mealFilterBtn);
 
     const drinksFilterBtn = screen.getByTestId('filter-by-drink-btn');
     userEvent.click(drinksFilterBtn);
