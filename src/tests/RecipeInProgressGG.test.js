@@ -10,7 +10,7 @@ const passInputStr = 'password-input';
 const loginSbmt = 'login-submit-btn';
 const emailEx = 'jose@gmail.com';
 
-describe('Testando o componente RecipeDetails Drinks', () => {
+describe('Testando o componente RecipeInProgress usando o mock GG', () => {
   it('1 - Testa se carrega os elementos da receita "GG" na página', async () => {
     const { history } = renderWithRouter(<App />);
     const emailInput = screen.getByTestId(emailInputStr);
@@ -21,7 +21,7 @@ describe('Testando o componente RecipeDetails Drinks', () => {
     userEvent.click(buttonInput);
 
     act(() => {
-      history.push('/drinks/15997');
+      history.push('/drinks/15997/in-progress');
     });
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
@@ -36,21 +36,22 @@ describe('Testando o componente RecipeDetails Drinks', () => {
     const title = screen.getByTestId('recipe-title');
     expect(title).toHaveTextContent('GG');
 
-    for (let index = 0; index < 3; index += 1) {
-      const ingredients = screen.getByTestId(`${index}-ingredient-name-and-measure`);
-      expect(ingredients).toBeInTheDocument();
-    }
-
     const category = screen.getByTestId('recipe-category');
-    expect(category).toHaveTextContent('Optional alcohol');
+    expect(category).toHaveTextContent('Ordinary Drink');
 
     await waitFor(() => {
-      const firstRecomendationCard = screen.getByTestId('0-recommendation-card');
-      expect(firstRecomendationCard).toBeInTheDocument();
+      for (let index = 0; index < 3; index += 1) {
+        const ingredients = screen.getByTestId(`${index}-ingredient-step`);
+        expect(ingredients).toBeInTheDocument();
+      }
     });
 
-    const startRecipeBtn = screen.getByTestId('start-recipe-btn');
-    userEvent.click(startRecipeBtn);
-    expect(history.location.pathname).toBe('/drinks/15997/in-progress');
+    // for (let index = 0; index < 3; index += 1) {
+    //   const ingredients = screen.getByTestId(`${index}-ingredient-step`);
+    //   expect(ingredients).toBeInTheDocument();
+    // }
+
+    const finishBtn = screen.getByTestId('finish-recipe-btn');
+    expect(finishBtn).toBeInTheDocument();
   });
 });

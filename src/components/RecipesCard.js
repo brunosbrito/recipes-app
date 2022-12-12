@@ -3,7 +3,6 @@ import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 
 function RecipesCard() {
-  // const [newData, setNewData] = useState([]);
   const { initialRecipes, data, setData, categoryFilter } = useContext(RecipesContext);
   const twelve = 12;
   const history = useHistory();
@@ -34,7 +33,6 @@ function RecipesCard() {
 
   return (
     <>
-      { console.log(data) }
       {twelveRecipes().map((recipes, index) => (
         <Link key={ index } to={ () => handleRedirect(recipes) }>
           <div
