@@ -9,18 +9,18 @@ function FavoriteRecipes() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [filteredRecipes, setFilteredRecipes] = useState(favoriteRecipes);
   const [btnCopy, setBtnCopy] = useState(false);
-  const MIL = 1000;
+  // const MIL = 1000;
 
-  function delay(milliseconds) {
-    return new Promise((resolve) => {
-      setTimeout(resolve, milliseconds);
-    });
-  }
+  // function delay(milliseconds) {
+  //   return new Promise((resolve) => {
+  //     setTimeout(resolve, milliseconds);
+  //   });
+  // }
 
-  async function copiedLinkMsg() {
+  function copiedLinkMsg() {
     setBtnCopy(true);
-    await delay(MIL);
-    setBtnCopy(false);
+    // await delay(MIL);
+    // setBtnCopy(false);
   }
 
   const mealsFilter = () => {
