@@ -36,7 +36,21 @@ describe('Testando o componente RecipeDetails Drinks', () => {
     const title = screen.getByTestId('recipe-title');
     expect(title).toHaveTextContent('GG');
 
+    for (let index = 0; index < 3; index += 1) {
+      const ingredients = screen.getByTestId(`${index}-ingredient-name-and-measure`);
+      expect(ingredients).toBeInTheDocument();
+    }
+
     const category = screen.getByTestId('recipe-category');
     expect(category).toHaveTextContent('Optional alcohol');
+
+    await waitFor(() => {
+      const firstRecomendationCard = screen.getByTestId('0-recommendation-card');
+      expect(firstRecomendationCard).toBeInTheDocument();
+    });
+
+    const startRecipeBtn = screen.getByTestId('start-recipe-btn');
+    userEvent.click(startRecipeBtn);
+    expect(history.location.pathname).toBe('/drinks/15997/in-progress');
   });
 });
