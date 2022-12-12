@@ -1,11 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
-// const inProgressRecipes = {
-//   drinks: {},
-//   meals: {},
-// };
-
 function Login({ history }) {
   const [user, setUser] = useState({
     email: '',
@@ -39,7 +34,6 @@ function Login({ history }) {
     localStorage.setItem('user', JSON.stringify({
       email: user.email,
     }));
-    // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 
     history.push('/meals');
   }
