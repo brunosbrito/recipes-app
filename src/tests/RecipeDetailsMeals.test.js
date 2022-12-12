@@ -38,5 +38,19 @@ describe('Testando o componente RecipeDetails', () => {
 
     const category = screen.getByTestId('recipe-category');
     expect(category).toHaveTextContent('Side');
+
+    await waitFor(() => {
+      const firstRecomendationCard = screen.getByTestId('0-recommendation-card');
+      expect(firstRecomendationCard).toBeInTheDocument();
+    });
+
+    for (let index = 0; index < 13; index += 1) {
+      const ingredients = screen.getByTestId(`${index}-ingredient-name-and-measure`);
+      expect(ingredients).toBeInTheDocument();
+    }
+
+    const startRecipeBtn = screen.getByTestId('start-recipe-btn');
+    userEvent.click(startRecipeBtn);
+    expect(history.location.pathname).toBe('/meals/52977/in-progress');
   });
 });
