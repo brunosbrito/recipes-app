@@ -1,7 +1,0 @@
-.styled-label:has( :checked ) {
-  text-decoration: line-through solid black;
-}
-
-.undone {
-  text-decoration: none solid black;
-}

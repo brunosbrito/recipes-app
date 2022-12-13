@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
-import '../CSS/RecipeInProgress.css';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 import FavBtn from './FavBtn';
 import ShareBtn from './ShareBtn';
@@ -185,6 +184,8 @@ function RecipeInProgress() {
               data-testid={ `${index}-ingredient-step` }
               htmlFor={ ingredient[0] }
               className="styled-label"
+              style={ { textDecoration: ingredientsCheck.includes(index.toString())
+                ? 'line-through solid black' : 'none' } }
             >
               <input
                 defaultChecked={ ingredientsCheck.includes(index.toString()) }

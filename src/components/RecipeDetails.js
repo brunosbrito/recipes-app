@@ -176,7 +176,11 @@ export default function RecipeDetails() {
       {checkPathname().map((int, index) => (
         <div key={ index }>
           <p data-testid="instructions">{int.strInstructions}</p>
-          <iframe data-testid="video" title="video receita" src={ int.strYoutube } />
+          { int.strYoutube && <iframe
+            data-testid="video"
+            title="video receita"
+            src={ int.strYoutube.replace('watch?v=', 'embed/') }
+          />}
         </div>
       ))}
       <FavBtn />
