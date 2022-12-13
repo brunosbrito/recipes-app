@@ -38,10 +38,16 @@ function Recomendations() {
     <div>
       {
         !recomendations.length > 0
-          ? <h3>Carregando...</h3>
+          ? <h3>Loading...</h3>
           : (
             <>
-              <h3>Recomendações</h3>
+              <h3
+                className="Container-fluid"
+                style={ { marginTop: '15px' } }
+              >
+                recommendations
+
+              </h3>
               {/* {console.log(sixRecomendations())} */}
               <button type="button" onClick={ carouselInfinite }>Próxima</button>
               <div className="slider-container">

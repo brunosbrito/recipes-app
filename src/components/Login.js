@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import Logo from '../images/Recipes.png';
+import '../CSS/Login.css';
 
 function Login({ history }) {
   const [user, setUser] = useState({
@@ -40,28 +42,42 @@ function Login({ history }) {
 
   return (
     <>
-      <input
-        data-testid="email-input"
-        type="email"
-        name="email"
-        value={ user.email }
-        onChange={ (e) => handleChange(e) }
-      />
-      <input
-        data-testid="password-input"
-        type="password"
-        name="password"
-        value={ user.password }
-        onChange={ (e) => handleChange(e) }
-      />
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ disabled }
-        onClick={ setLocal }
-      >
-        Enter
-      </button>
+      <div className="text-center">
+        <img className="img-fluid" src={ Logo } alt="logo" />
+      </div>
+      <div className="d-grid gap-2 col-6 mx-auto">
+        <input
+          placeholder="E-mail"
+          className="form-control"
+          data-testid="email-input"
+          type="email"
+          name="email"
+          value={ user.email }
+          onChange={ (e) => handleChange(e) }
+        />
+        <input
+          data-testid="password-input"
+          type="password"
+          name="password"
+          placeholder="Passord"
+          value={ user.password }
+          onChange={ (e) => handleChange(e) }
+          className="form-control"
+        />
+      </div>
+      <div className="d-grid gap-2 col-6 mx-auto">
+        <button
+          className="btn btn-success "
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ disabled }
+          onClick={ setLocal }
+        >
+          Enter
+        </button>
+
+      </div>
+
     </>
   );
 }

@@ -1,0 +1,33 @@
+.img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.card {
+  border: none;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 21px 21px 70px 20px;
+  padding-top: 20px;
+}
+
+.link {
+  color: black;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #e45700;
+}
+
+.item {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.name {
+  margin-top: 10px;
+}

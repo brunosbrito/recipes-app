@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import '../CSS/RecipesCard.css';
 
 function RecipesCard() {
   const { initialRecipes, data, setData, categoryFilter } = useContext(RecipesContext);
@@ -32,30 +33,37 @@ function RecipesCard() {
   }
 
   return (
-    <>
+    <div className="card text-center">
       {twelveRecipes().map((recipes, index) => (
-        <Link key={ index } to={ () => handleRedirect(recipes) }>
+        <Link className="link" key={ index } to={ () => handleRedirect(recipes) }>
           <div
+            className="g-col-6"
             data-testid={ `${index}-recipe-card` }
           >
-            <p
-              data-testid={ `${index}-card-name` }
-            >
-              {(history.location.pathname === '/meals')
-                ? recipes.strMeal : recipes.strDrink}
-            </p>
-            <img
-              data-testid={ `${index}-card-img` }
-              style={ {
-                maxWidth: '200px', maxHeight: '150px', width: 'auto', height: 'auto' } }
-              src={ (history.location.pathname === '/meals')
-                ? recipes.strMealThumb : recipes.strDrinkThumb }
-              alt={ (history.location.pathname === '/meals')
-                ? recipes.strMeal : recipes.strDrink }
-            />
+            <div className="item">
+              <img
+                data-testid={ `${index}-card-img` }
+                className="img g-col-6"
+                src={ (history.location.pathname === '/meals')
+                  ? recipes.strMealThumb : recipes.strDrinkThumb }
+                alt={ (history.location.pathname === '/meals')
+                  ? recipes.strMeal : recipes.strDrink }
+              />
+              <div className="name">
+                <p
+                  data-testid={ `${index}-card-name` }
+                >
+                  {(history.location.pathname === '/meals')
+                    ? recipes.strMeal : recipes.strDrink}
+                </p>
+
+              </div>
+
+            </div>
+
           </div>
         </Link>))}
-    </>
+    </div>
   );
 }
 export default RecipesCard;

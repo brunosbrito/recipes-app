@@ -9,6 +9,7 @@ import {
   RequestFooterFisrtLetterApi,
   RequestFooterIngredientApi,
   RequestFooterNameApi } from '../services/RequestFoodApí';
+import '../CSS/SearchBar.css';
 
 function SearchBar() {
   const [optionSearch, setOptionSearch] = useState('');
@@ -61,56 +62,73 @@ function SearchBar() {
     }
   };
   return (
-    <>
-      <input
-        data-testid="search-input"
-        onChange={ handleChangeInput }
-        type="text"
-        placeholder="Receita"
-        name="search"
-      />
-      <label htmlFor="Ingredient">
-        Ingredient
+    <div className="search">
+      <div className="input-search">
         <input
-          data-testid="ingredient-search-radio"
-          type="radio"
-          value="Ingredient"
-          id="Ingredient"
+          className="search-input"
+          data-testid="search-input"
+          onChange={ handleChangeInput }
+          type="text"
+          placeholder="Search recipe"
           name="search"
-          onChange={ handleChangeOptions }
         />
-      </label>
-      <label htmlFor="Name">
-        Name
-        <input
-          data-testid="name-search-radio"
-          type="radio"
-          value="Name"
-          id="Name"
-          name="search"
-          onChange={ handleChangeOptions }
-        />
-      </label>
-      <label htmlFor="First-letter">
-        First letter
-        <input
-          data-testid="first-letter-search-radio"
-          type="radio"
-          value="First letter"
-          id="First-letter"
-          name="search"
-          onChange={ handleChangeOptions }
-        />
-      </label>
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-        onClick={ handleClick }
-      >
-        Search
+        <button
+          className="btn btn-outline-dark"
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ handleClick }
+        >
+          Search
 
-      </button>
-    </>
+        </button>
+      </div>
+
+      <div className="wrapper">
+        <div className="inputs">
+          <label htmlFor="Ingredient">
+            <input
+              className="radio"
+              data-testid="ingredient-search-radio"
+              type="radio"
+              value="Ingredient"
+              id="Ingredient"
+              name="search"
+              onChange={ handleChangeOptions }
+            />
+            <span>Ingredient</span>
+          </label>
+        </div>
+        <div className="inputs">
+          <label htmlFor="Name">
+            <input
+              className="radio"
+              data-testid="input-radio"
+              type="radio"
+              value="Name"
+              id="Name"
+              name="search"
+              onChange={ handleChangeOptions }
+            />
+            <span>Name</span>
+          </label>
+
+        </div>
+        <div className="inputs">
+          <label htmlFor="First-letter">
+            <input
+              className="radio"
+              data-testid="first-letter-search-radio"
+              type="radio"
+              value="First letter"
+              id="First-letter"
+              name="search"
+              onChange={ handleChangeOptions }
+            />
+            <span>First letter</span>
+          </label>
+        </div>
+      </div>
+    </div>
 
   );
 }

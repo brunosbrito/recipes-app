@@ -11,6 +11,7 @@ function ShareBtn() {
   return (
     <div>
       <button
+        className="btn btn-outline-dark"
         data-testid="share-btn"
         type="button"
         onClick={ () => {
