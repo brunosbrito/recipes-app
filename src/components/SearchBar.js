@@ -102,7 +102,7 @@ function SearchBar() {
           <label htmlFor="Name">
             <input
               className="radio"
-              data-testid="input-radio"
+              data-testid="name-search-radio"
               type="radio"
               value="Name"
               id="Name"

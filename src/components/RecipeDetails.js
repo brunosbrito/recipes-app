@@ -104,13 +104,6 @@ export default function RecipeDetails() {
     </button>
   );
 
-  const complete = (JSON.parse(localStorage.getItem('doneRecipes')));
-  const buttonProgress = (complete !== null)
-    ? ((complete[0].id !== id) && btnStart)
-    : btnStart;
-
-  console.log(complete);
-
   const checkProgress = () => {
     const progressRecipes = (JSON.parse(localStorage.getItem('inProgressRecipes')));
     if (url.includes('meals')) {
@@ -132,12 +125,31 @@ export default function RecipeDetails() {
       return drinksId;
     }
   };
-  const progressRecipes = (JSON.parse(localStorage.getItem('inProgressRecipes')));
-  console.log(checkProgress());
 
   const verificProgress = (checkProgress().includes(id.toString()))
-    ? ((progressRecipes.meals[id].length !== 0) && btnContinue)
+    ? btnContinue
     : btnStart;
+
+  console.log(checkProgress().includes(id.toString()));
+
+  const complete = (JSON.parse(localStorage.getItem('doneRecipes')));
+  console.log(complete);
+
+  const buttonProgress = () => {
+    let button = '';
+    if (complete !== null) {
+      complete?.forEach((e) => {
+        if (e.id === id) {
+          button = '';
+        } else {
+          button = verificProgress;
+        }
+      });
+    } else {
+      button = verificProgress;
+    }
+    return button;
+  };
 
   return (
     <>
@@ -202,7 +214,7 @@ export default function RecipeDetails() {
         <ShareBtn />
       </div>
       <Recomendations />
-      {(complete.includes(id)) ? buttonProgress : verificProgress}
+      {buttonProgress()}
     </>
   );
 }

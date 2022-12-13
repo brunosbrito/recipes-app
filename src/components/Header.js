@@ -19,7 +19,7 @@ function Header() {
   const searchButton = () => {
     if (inputSearch === false) {
       setInputSearch(true);
-    } else if (inputSearch === true) {
+    } else {
       setInputSearch(false);
     }
   };
@@ -43,17 +43,27 @@ function Header() {
           >
 
             <img
+              data-testid="goback"
               className="goback"
               src={ GoBack }
               alt="Go Back"
             />
 
           </button>
-          <img
-            className="recipe-icon"
-            src={ RecipesIcon }
-            alt="Recipes Icon"
-          />
+          <button
+            data-testid="icon-id"
+            className="icon"
+            onClick={ () => { history.push('/meals'); } }
+            type="button"
+          >
+            <img
+              className="recipe-icon"
+              src={ RecipesIcon }
+              alt="Recipes Icon"
+            />
+
+          </button>
+
           {/* <div> */}
           <button
             className="icon "
