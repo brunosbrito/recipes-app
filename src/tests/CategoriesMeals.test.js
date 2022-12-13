@@ -22,8 +22,6 @@ test('1 - Testando as categorias na página "meals"', async () => {
   act(() => {
     history.push('/meals');
   });
-  // userEvent.click(screen.getByTestId('drinks-bottom-btn'));
-  // userEvent.click(screen.getByTestId('meals-bottom-btn'));
 
   await waitFor(() => {
     const beefBtn = screen.getByTestId('Beef-category-filter');

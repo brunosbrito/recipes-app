@@ -28,6 +28,8 @@ describe('Testando o componente RecipeDetails Drinks', () => {
       json: jest.fn().mockResolvedValue(GGMock),
     });
 
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: { 15997: ['0', '1'] }, meals: {} }));
+
     await waitFor(() => {
       const photo = screen.getByTestId('recipe-photo');
       expect(photo).toBeInTheDocument();
@@ -52,5 +54,35 @@ describe('Testando o componente RecipeDetails Drinks', () => {
     const startRecipeBtn = screen.getByTestId('start-recipe-btn');
     userEvent.click(startRecipeBtn);
     expect(history.location.pathname).toBe('/drinks/15997/in-progress');
+
+    // act(() => {
+    //   history.push('/drinks/15997');
+    // });
+
+    // localStorage.setItem('doneRecipes', JSON.stringify([
+    //   {
+    //     id: '52977',
+    //     type: 'meal',
+    //     nationality: 'Turkish',
+    //     category: 'Side',
+    //     alcoholicOrNot: '',
+    //     name: 'Corba',
+    //     image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+    //     doneDate: '2022-12-13T15:24:26.349Z',
+    //     tags: ['Soup'],
+    //   },
+    //   {
+    //     id: '15997',
+    //     type: 'drink',
+    //     nationality: '',
+    //     category: 'Ordinary Drink',
+    //     alcoholicOrNot: 'Optional alcohol',
+    //     name: 'GG',
+    //     image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+    //     doneDate: '2022-12-13T15:20:17.965Z',
+    //     tags: [],
+    //   },
+    // ]));
+    // expect(startRecipeBtn).not.toBeInTheDocument();
   });
 });
