@@ -10,12 +10,12 @@ function DoneRecipes() {
   const [search, setSearch] = useState([]);
 
   const handleFilterMeal = () => {
-    const mealFilter = search.filter((el) => (el.type === 'meal'));
+    const mealFilter = data.filter((el) => (el.type === 'meal'));
     setSearch(mealFilter);
   };
 
   const handleFilterDrink = () => {
-    const drinkFilter = search.filter((el) => (el.type === 'drink'));
+    const drinkFilter = data.filter((el) => (el.type === 'drink'));
     setSearch(drinkFilter);
   };
 
