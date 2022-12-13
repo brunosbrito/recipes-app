@@ -4,6 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 import {
   RequestByDrinkCategory,
   RequestByMealCategory } from '../services/RequestCategories';
+import '../CSS/Categories.css';
 
 function Categories() {
   const {
@@ -35,28 +36,35 @@ function Categories() {
         .then((result) => setData(result));
     }
   }
+  console.log(fiveCategories());
 
   return (
-    <>
-      {fiveCategories().map((category, index) => (
-        <div key={ index }>
-          <button
-            type="button"
-            data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ () => fetchByCategory(category.strCategory) }
+    <div className="categories">
+      <div className="btn-toolbar">
+        {fiveCategories().map((category, index) => (
+          <div
+            key={ index }
           >
-            {category.strCategory}
-          </button>
-        </div>
-      ))}
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        onClick={ resetCategoryFilters }
-      >
-        All
-      </button>
-    </>
+            <button
+              className="btn-group me-2 btn-categories"
+              type="button"
+              data-testid={ `${category.strCategory}-category-filter` }
+              onClick={ () => fetchByCategory(category.strCategory) }
+            >
+              {category.strCategory}
+            </button>
+          </div>
+        ))}
+        <button
+          type="button"
+          className="btn-categories"
+          data-testid="All-category-filter"
+          onClick={ resetCategoryFilters }
+        >
+          All
+        </button>
+      </div>
+    </div>
   );
 }
 

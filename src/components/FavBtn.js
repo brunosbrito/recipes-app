@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.svg';
+import blackHeart from '../images/blackHeartIcon.png';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 import RecipesContext from '../context/RecipesContext';
 
@@ -77,6 +77,8 @@ function FavBtn() {
   return (
     <div>
       <button
+        className="btn"
+        style={ { border: 'none', backgroundColor: 'white', marginRight: '15px' } }
         data-testid="favorite-btn"
         type="submit"
         src={ localHeart ? blackHeart : whiteHeart }

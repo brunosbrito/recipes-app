@@ -1,3 +1,20 @@
+.recipeDetails {
+  text-align: center;
+
+}
+
+.instructions {
+  margin-left: 15px;
+  margin-top: 20px;
+  width: 90%;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 15px;
+}
+
+
 .slider-container {
   background: #f1f1f1;
   display: flex;
@@ -18,9 +35,34 @@
 }
 
 .start-recipe {
+  background-color: #e45700;
+  border: none;
+  border-radius: 6px;
   bottom: 0;
+  height: 30px;
   margin: 5px auto;
+  opacity: 0.9;
   position: fixed;
   text-align: center;
   width: 100%;
+}
+
+.start-recipe:hover {
+  opacity: 1;
+}
+
+
+.iframe-container {
+  height: 0;
+  padding-bottom: 56.25%;
+  position: relative;
+  width: 100%;
+}
+
+.iframe-container iframe {
+  height: 80%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 80%;
 }

@@ -1,0 +1,35 @@
+.header {
+  background-color: #e45700;
+  height: 80px;
+  margin-top: -8px;
+
+}
+
+.options {
+  padding: 10px;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+.icon {
+  background-color: #e45700;
+  border: none;
+  padding-left: 10px;
+}
+
+
+.recipe-icon {
+  width: 120px;
+}
+
+.goback {
+  opacity: 0.8;
+  width: 40px;
+}
+
+
+.icon:hover {
+  opacity: 0.5;
+}

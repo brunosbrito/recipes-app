@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-
 import RecipesContext from '../context/RecipesContext';
 import {
   RequestInitialDrinks,
@@ -10,6 +9,7 @@ import Recomendations from './Recomendations';
 import '../CSS/RecipeDetails.css';
 import ShareBtn from './ShareBtn';
 import FavBtn from './FavBtn';
+import Header from './Header';
 
 export default function RecipeDetails() {
   const history = useHistory();
@@ -87,7 +87,7 @@ export default function RecipeDetails() {
     <button
       type="button"
       data-testid="start-recipe-btn"
-      className="start-recipe"
+      className="start-recipe "
       onClick={ startRecipe }
     >
       Start Recipe
@@ -97,7 +97,7 @@ export default function RecipeDetails() {
     <button
       type="button"
       data-testid="start-recipe-btn"
-      className="start-recipe"
+      className="start-recipe "
       onClick={ startRecipe }
     >
       Continue Recipe
@@ -108,6 +108,8 @@ export default function RecipeDetails() {
   const buttonProgress = (complete !== null)
     ? ((complete[0].id !== id) && btnStart)
     : btnStart;
+
+  console.log(complete);
 
   const checkProgress = () => {
     const progressRecipes = (JSON.parse(localStorage.getItem('inProgressRecipes')));
@@ -131,16 +133,19 @@ export default function RecipeDetails() {
     }
   };
   const progressRecipes = (JSON.parse(localStorage.getItem('inProgressRecipes')));
+  console.log(checkProgress());
 
   const verificProgress = (checkProgress().includes(id.toString()))
-    ? ((progressRecipes !== 0) && btnContinue)
+    ? ((progressRecipes.meals[id].length !== 0) && btnContinue)
     : btnStart;
 
   return (
     <>
+      <Header />
       {checkPathname().map((recipe, index) => (
-        <div key={ index }>
+        <div className="recipeDetails" key={ index }>
           <img
+            className="img-fluid img"
             data-testid="recipe-photo"
             src={ (history.location.pathname === `/meals/${id}`)
               ? recipe.strMealThumb : recipe.strDrinkThumb }
@@ -164,8 +169,11 @@ export default function RecipeDetails() {
       {
         arrayIngredients().map((ingredient, index) => (
           <div key={ index }>
-            <ul>
-              <li data-testid={ `${index}-ingredient-name-and-measure` }>
+            <ul className="list-group">
+              <li
+                className="list-group-item list-group-item-action list"
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
                 {ingredient.join(', ')}
               </li>
             </ul>
@@ -175,14 +183,29 @@ export default function RecipeDetails() {
 
       {checkPathname().map((int, index) => (
         <div key={ index }>
-          <p data-testid="instructions">{int.strInstructions}</p>
-          <iframe data-testid="video" title="video receita" src={ int.strYoutube } />
+          <div className="instructions">
+            <p data-testid="instructions">{int.strInstructions}</p>
+          </div>
+          <div className="container-fluid">
+            <div className="iframe-container ">
+              <iframe
+                src={ int.strYoutube.replace('watch', 'embed') }
+                title={ int.idMeal }
+                data-testid="video"
+              />
+            </div>
+
+          </div>
+
         </div>
       ))}
-      <FavBtn />
-      <ShareBtn />
+      <div className="buttons container-fluid">
+        <FavBtn />
+        <ShareBtn />
+      </div>
+
       <Recomendations />
-      {(complete === null) ? verificProgress : buttonProgress}
+      {(complete.includes(id)) ? buttonProgress : verificProgress}
     </>
   );
 }

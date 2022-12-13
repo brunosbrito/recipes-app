@@ -1,0 +1,11 @@
+.btn-categories {
+  background-color: white;
+  border: none;
+  color: #e45700;
+}
+
+.categories {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
