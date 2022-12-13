@@ -10,14 +10,12 @@ function DoneRecipes() {
   const [search, setSearch] = useState([]);
 
   const handleFilterMeal = () => {
-    const mealFilter = search.filter((el) => (el.type === 'meal'));
-    console.log(mealFilter);
+    const mealFilter = data.filter((el) => (el.type === 'meal'));
     setSearch(mealFilter);
   };
 
   const handleFilterDrink = () => {
-    const drinkFilter = search.filter((el) => (el.type === 'drink'));
-    console.log(drinkFilter);
+    const drinkFilter = data.filter((el) => (el.type === 'drink'));
     setSearch(drinkFilter);
   };
 
@@ -59,7 +57,6 @@ function DoneRecipes() {
 
       </button>
 
-      {console.log('DoneRecipes', (data))}
       {search !== null && search.map((el, index) => (
         <div key={ index }>
           <Link to={ `/${`${el.type}s`}/${el.id}` }>
@@ -114,7 +111,6 @@ function DoneRecipes() {
             >
               {value}
             </p>))}
-          {/* {console.log('Search', search)} */}
         </div>
       ))}
     </>

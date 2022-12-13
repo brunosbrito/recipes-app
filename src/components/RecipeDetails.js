@@ -188,22 +188,19 @@ export default function RecipeDetails() {
           </div>
           <div className="container-fluid">
             <div className="iframe-container ">
-              <iframe
-                src={ int.strYoutube.replace('watch', 'embed') }
-                title={ int.idMeal }
+              { int.strYoutube && <iframe
                 data-testid="video"
-              />
+                title="video receita"
+                src={ int.strYoutube.replace('watch?v=', 'embed/') }
+              />}
             </div>
-
           </div>
-
         </div>
       ))}
       <div className="buttons container-fluid">
         <FavBtn />
         <ShareBtn />
       </div>
-
       <Recomendations />
       {(complete.includes(id)) ? buttonProgress : verificProgress}
     </>

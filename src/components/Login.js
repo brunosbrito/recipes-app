@@ -36,7 +36,6 @@ function Login({ history }) {
     localStorage.setItem('user', JSON.stringify({
       email: user.email,
     }));
-    // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
 
     history.push('/meals');
   }

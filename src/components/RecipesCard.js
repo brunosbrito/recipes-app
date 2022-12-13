@@ -4,7 +4,6 @@ import RecipesContext from '../context/RecipesContext';
 import '../CSS/RecipesCard.css';
 
 function RecipesCard() {
-  // const [newData, setNewData] = useState([]);
   const { initialRecipes, data, setData, categoryFilter } = useContext(RecipesContext);
   const twelve = 12;
   const history = useHistory();
