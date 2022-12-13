@@ -2,6 +2,6 @@
   text-decoration: line-through solid black;
 }
 
-.undone {
-  text-decoration: none solid black;
+.styled-label:has( :not( :checked ) ) {
+  text-decoration: none;
 }
