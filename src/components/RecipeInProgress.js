@@ -80,6 +80,7 @@ function RecipeInProgress() {
   }
 
   function handleChange({ target }) {
+    console.log(target.parentNode.style);
     if (target.checked) {
       const addArray = [...ingredientsCheck, target.className];
       setIngredientsCheck(addArray);
@@ -185,6 +186,8 @@ function RecipeInProgress() {
               data-testid={ `${index}-ingredient-step` }
               htmlFor={ ingredient[0] }
               className="styled-label"
+              style={ { textDecoration: ingredientsCheck.includes(index.toString())
+                ? 'line-through solid rgb(0, 0, 0)' : 'none' } }
             >
               <input
                 defaultChecked={ ingredientsCheck.includes(index.toString()) }

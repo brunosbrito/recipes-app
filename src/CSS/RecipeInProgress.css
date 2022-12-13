@@ -1,7 +1,11 @@
-.styled-label:has( :checked ) {
+/* .styled-label {
+  text-decoration: underline solid black;
+} */
+
+/* .styled-label:has(:checked) {
   text-decoration: line-through solid black;
 }
 
-.styled-label:has( :not( :checked ) ) {
+.styled-label:has(:not(:checked)) {
   text-decoration: none;
-}
+} */
