@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../helpers/renderWithRouter';
@@ -35,7 +35,7 @@ describe('Testando o componente Header', () => {
     expect(screen.getByTestId('search-input')).toBeInTheDocument();
 
     userEvent.click(screen.getByTestId('search-top-btn'));
-    expect(screen.getByTestId('search-input')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('search-input')).not.toBeInTheDocument();
   });
 
   test('3 - Testa o título na página Meals', () => {
@@ -48,5 +48,25 @@ describe('Testando o componente Header', () => {
     userEvent.click(buttonInput);
     userEvent.click(screen.getByTestId('meals-bottom-btn'));
     expect(screen.getByTestId('page-title')).toHaveTextContent('Meals');
+  });
+
+  test('4 - Testa se ao clicar no icone recipes volta para a pagina meals', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/drinks/15997');
+    });
+    const icon = screen.getByTestId('icon-id');
+    userEvent.click(icon);
+    expect(history.location.pathname).toBe('/meals');
+  });
+
+  test('5 - Testa se ao clicar na seta de voltar , volta para url antiga', () => {
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/drinks/15997');
+    });
+    const icon = screen.getByTestId('goback');
+    userEvent.click(icon);
+    expect(history.location.pathname).toBe('/');
   });
 });

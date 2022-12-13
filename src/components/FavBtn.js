@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import whiteHeart from '../images/whiteHeartIcon.svg';
-import blackHeart from '../images/blackHeartIcon.png';
+import blackHeart from '../images/blackHeartIcon.svg';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 import RecipesContext from '../context/RecipesContext';
 
