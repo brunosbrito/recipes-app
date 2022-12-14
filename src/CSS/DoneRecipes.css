@@ -1,0 +1,43 @@
+.cardDone {
+  border: none;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 21px 21px 70px 20px;
+  padding-top: 20px;
+}
+
+.img {
+  height: 50%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.itemDone {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.btnShare {
+  background-color: white;
+  border: none;
+  opacity: 0.7;
+}
+
+.btnShare:hover {
+  opacity: 1;
+}
+
+a {
+  color: black;
+  text-decoration: underline;
+}
+
+.itemDone h4 {
+  padding-top: 10px;
+}
+
+a:hover {
+  color: #e45700;
+}

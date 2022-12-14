@@ -1,0 +1,61 @@
+.img-title {
+  text-align: center;
+
+}
+
+.img-title img {
+  width: 200px;
+}
+
+.img-title h4 {
+  margin-top: 10px;
+}
+
+.title-category {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.title-category p {
+  margin-left: 10px;
+}
+
+.input {
+  margin-top: -20px;
+}
+
+span {
+  padding-left: 5px;
+}
+
+.group {
+  margin-top: 50px;
+}
+
+.styled-label:has( :checked ) {
+  text-decoration: line-through solid black;
+}
+
+.finishButton {
+  background-color: #e45700;
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  opacity: 0.8;
+  width: 150px;
+}
+
+.finishButton:hover {
+  opacity: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.fav-share {
+  display: flex;
+}
