@@ -36,7 +36,6 @@ function Categories() {
         .then((result) => setData(result));
     }
   }
-  console.log(fiveCategories());
 
   return (
     <div className="categories">
