@@ -9,6 +9,7 @@ import Profile from './components/Profile';
 import RecipesProvider from './context/RecipesProvider';
 import RecipeInProgress from './components/RecipeInProgress';
 import RecipeDetails from './components/RecipeDetails';
+import './CSS/Loading.css';
 
 function App() {
   return (

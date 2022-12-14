@@ -37,6 +37,19 @@ function FavoriteRecipes() {
     localStorage.setItem('favoriteRecipes', JSON.stringify(removedRecipe));
   };
 
+  if (favoriteRecipes === null || favoriteRecipes.length === 0) {
+    return (
+      <>
+        <Header />
+        <h4
+          style={ { textAlign: 'center' } }
+        >
+          You do not have any favorite recipes yet!
+        </h4>
+      </>
+    );
+  }
+
   return (
     <>
       <Header />

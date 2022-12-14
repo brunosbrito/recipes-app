@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 import FavBtn from './FavBtn';
+import Header from './Header';
 import ShareBtn from './ShareBtn';
 import Header from './Header';
 import '../CSS/RecipeInProgress.css';
@@ -93,7 +94,7 @@ function RecipeInProgress() {
   }
 
   function handleArrayTags(key) {
-    if (key.includes(',')) {
+    if (key?.includes(',')) {
       const array = key.split(',');
       return array;
     }
@@ -147,6 +148,20 @@ function RecipeInProgress() {
         meals: {},
       }));
     }
+  }
+
+  if (!arrayRecipe.length > 0) {
+    return (
+      <>
+        <Header />
+        <div className="load-row">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </>
+    );
   }
 
   return (

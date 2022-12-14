@@ -28,6 +28,15 @@ function DoneRecipes() {
     setSearch(data);
   }, []);
 
+  if (data === null || data.length === 0) {
+    return (
+      <>
+        <Header />
+        <h4 style={ { textAlign: 'center' } }>You do not have any done recipes yet!</h4>
+      </>
+    );
+  }
+
   return (
     <>
       <Header />
