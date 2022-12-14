@@ -73,7 +73,7 @@ function FavBtn() {
     requestMeals();
     requestDrink();
   }, []);
-  // console.log(array);
+
   return (
     <div>
       <button

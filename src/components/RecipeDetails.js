@@ -138,6 +138,8 @@ export default function RecipeDetails() {
       complete?.forEach((e) => {
         if (e.id === id) {
           button = '';
+        } else {
+          button = verificProgress;
         }
       });
     } else {
