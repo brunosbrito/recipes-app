@@ -55,7 +55,7 @@ function Recomendations() {
 
               </h3>
               {/* {console.log(sixRecomendations())} */}
-              <button type="button" onClick={ carouselInfinite } />
+              <button type="button" onClick={ carouselInfinite }>Next</button>
               <div className="slider-container">
                 {
                   sixRecomendations().map((recipe, index) => (

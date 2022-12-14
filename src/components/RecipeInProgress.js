@@ -167,9 +167,7 @@ function RecipeInProgress() {
     <>
       <Header />
       <div className="container">
-
         {startLocal()}
-
         {
           (arrayRecipe.length === 0)
             ? <p>carregando...</p> : arrayRecipe.map((el, index) => (
@@ -181,19 +179,15 @@ function RecipeInProgress() {
                     src={ slug.includes('meals') ? el.strMealThumb : el.strDrinkThumb }
                     alt={ slug.includes('meals') ? el.strMeal : el.strDrink }
                   />
-
                   <h4 data-testid="recipe-title">
                     { slug.includes('meals') ? el.strMeal : el.strDrink }
                   </h4>
-
                   <p data-testid="recipe-category">
                     Category:
                     {' '}
                     { el.strCategory}
                   </p>
-
                 </div>
-
                 <p data-testid="instructions">
                   { el.strInstructions }
                 </p>
@@ -230,7 +224,6 @@ function RecipeInProgress() {
               </div>
             ))
           }
-
         </div>
         <div className="footer">
           <button
@@ -246,12 +239,9 @@ function RecipeInProgress() {
             <FavBtn />
             <ShareBtn />
           </div>
-
         </div>
-
       </div>
     </>
-
   );
 }
 
