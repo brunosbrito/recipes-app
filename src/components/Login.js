@@ -59,7 +59,7 @@ function Login({ history }) {
           data-testid="password-input"
           type="password"
           name="password"
-          placeholder="Passord"
+          placeholder="Password"
           value={ user.password }
           onChange={ (e) => handleChange(e) }
           className="form-control"
