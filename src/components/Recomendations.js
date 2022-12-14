@@ -42,14 +42,14 @@ function Recomendations() {
           : (
             <>
               <h3
-                className="Container-fluid"
+                className="container-fluid"
                 style={ { marginTop: '15px' } }
               >
                 recommendations
 
               </h3>
               {/* {console.log(sixRecomendations())} */}
-              <button type="button" onClick={ carouselInfinite }>Próxima</button>
+              <button type="button" onClick={ carouselInfinite } />
               <div className="slider-container">
                 {
                   sixRecomendations().map((recipe, index) => (

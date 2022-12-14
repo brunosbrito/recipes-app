@@ -4,6 +4,8 @@ import RecipesContext from '../context/RecipesContext';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 import FavBtn from './FavBtn';
 import ShareBtn from './ShareBtn';
+import Header from './Header';
+import '../CSS/RecipeInProgress.css';
 
 function RecipeInProgress() {
   const { setArray } = useContext(RecipesContext);
@@ -78,13 +80,13 @@ function RecipeInProgress() {
     }
   }
 
-  function handleChange({ target }) {
+  function handleChange({ target }, index) {
     if (target.checked) {
-      const addArray = [...ingredientsCheck, target.className];
+      const addArray = [...ingredientsCheck, index];
       setIngredientsCheck(addArray);
       addToProgressLocal(addArray);
     } else {
-      const subArray = ingredientsCheck.filter((e) => e !== target.className);
+      const subArray = ingredientsCheck.filter((e) => e !== index);
       setIngredientsCheck(subArray);
       addToProgressLocal(subArray);
     }
@@ -149,67 +151,93 @@ function RecipeInProgress() {
 
   return (
     <>
-      {startLocal()}
+      <Header />
+      <div className="container">
 
-      <h1>Em progresso</h1>
-      {
-        (arrayRecipe.length === 0)
-          ? <p>carregando...</p> : arrayRecipe.map((el, index) => (
-            <div key={ index }>
-              <img
-                style={ {
-                  maxWidth: '200px', maxHeight: '150px', width: 'auto', height: 'auto' } }
-                data-testid="recipe-photo"
-                src={ slug.includes('meals') ? el.strMealThumb : el.strDrinkThumb }
-                alt={ slug.includes('meals') ? el.strMeal : el.strDrink }
-              />
-              <p data-testid="recipe-title">
-                { slug.includes('meals') ? el.strMeal : el.strDrink }
-              </p>
-              <ShareBtn />
-              <FavBtn />
-              <p data-testid="recipe-category">
-                { el.strCategory}
-              </p>
-              <p data-testid="instructions">
-                { el.strInstructions }
-              </p>
-            </div>
-          ))
-      }
-      {
-        arrayInstructions.map((ingredient, index) => (
-          <div key={ index }>
-            <label
-              data-testid={ `${index}-ingredient-step` }
-              htmlFor={ ingredient[0] }
-              className="styled-label"
-              style={ { textDecoration: ingredientsCheck.includes(index.toString())
-                ? 'line-through solid black' : 'none' } }
-            >
-              <input
-                defaultChecked={ ingredientsCheck.includes(index.toString()) }
-                className={ index }
-                type="checkbox"
-                name={ ingredient[0] }
-                id={ ingredient[0] }
-                onChange={ handleChange }
-              />
-              {ingredient.join(', ')}
-            </label>
-            <br />
+        {startLocal()}
+
+        {
+          (arrayRecipe.length === 0)
+            ? <p>carregando...</p> : arrayRecipe.map((el, index) => (
+              <div key={ index }>
+                <div className="img-title">
+                  <img
+                    className="img img-fluid"
+                    data-testid="recipe-photo"
+                    src={ slug.includes('meals') ? el.strMealThumb : el.strDrinkThumb }
+                    alt={ slug.includes('meals') ? el.strMeal : el.strDrink }
+                  />
+
+                  <h4 data-testid="recipe-title">
+                    { slug.includes('meals') ? el.strMeal : el.strDrink }
+                  </h4>
+
+                  <p data-testid="recipe-category">
+                    Category:
+                    {' '}
+                    { el.strCategory}
+                  </p>
+
+                </div>
+
+                <p data-testid="instructions">
+                  { el.strInstructions }
+                </p>
+              </div>
+            ))
+        }
+        <div className="group">
+          {
+            arrayInstructions.map((ingredient, index) => (
+              <div className="list-group" key={ index }>
+                <label
+                  data-testid={ `${index}-ingredient-step` }
+                  htmlFor={ ingredient[0] }
+                  className="styled-label form-check-label"
+                >
+                  <div className="list-group-item input">
+                    <input
+                      defaultChecked={ ingredientsCheck.includes(index) }
+                      className="form-check-input"
+                      type="checkbox"
+                      name={ ingredient[0] }
+                      id={ ingredient[0] }
+                      onChange={ (event) => handleChange(event, index) }
+                    />
+                    <span>
+                      {' '}
+                      {ingredient.join(', ')}
+                    </span>
+
+                  </div>
+
+                </label>
+                <br />
+              </div>
+            ))
+          }
+
+        </div>
+        <div className="footer">
+          <button
+            className="finishButton"
+            data-testid="finish-recipe-btn"
+            type="button"
+            disabled={ disabled }
+            onClick={ handleclick }
+          >
+            Finish Recipe
+          </button>
+          <div className="fav-share">
+            <FavBtn />
+            <ShareBtn />
           </div>
-        ))
-      }
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        disabled={ disabled }
-        onClick={ handleclick }
-      >
-        Finish Recipe
-      </button>
+
+        </div>
+
+      </div>
     </>
+
   );
 }
 

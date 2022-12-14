@@ -16,27 +16,37 @@ function Profile() {
     <>
       <Header />
       <h2 data-testid="profile-email">{ profileEmailParse?.email }</h2>
-      <button
-        data-testid="profile-done-btn"
-        type="button"
-        onClick={ () => history.push('/done-recipes') }
+      <div
+        className="container btn"
       >
-        Done Recipes
-      </button>
-      <button
-        data-testid="profile-favorite-btn"
-        type="button"
-        onClick={ () => history.push('/favorite-recipes') }
-      >
-        Favorite Recipes
-      </button>
-      <button
-        data-testid="profile-logout-btn"
-        type="button"
-        onClick={ logoutFunc }
-      >
-        Logout
-      </button>
+        <button
+          style={ { marginRight: '10px' } }
+          className="btn btn-outline-dark"
+          data-testid="profile-done-btn"
+          type="button"
+          onClick={ () => history.push('/done-recipes') }
+        >
+          Done Recipes
+        </button>
+        <button
+          style={ { marginRight: '10px' } }
+          className="btn btn-outline-dark"
+          data-testid="profile-favorite-btn"
+          type="button"
+          onClick={ () => history.push('/favorite-recipes') }
+        >
+          Favorite Recipes
+        </button>
+        <button
+          className="btn btn-outline-dark"
+          data-testid="profile-logout-btn"
+          type="button"
+          onClick={ logoutFunc }
+        >
+          Logout
+        </button>
+      </div>
+
       <Footer />
     </>
   );

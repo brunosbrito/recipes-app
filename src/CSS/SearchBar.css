@@ -48,7 +48,7 @@ span {
 .radio {
   align-items: center;
   appearance: none;
-  border: 2px solid orange;
+  border: 2px solid #e45700;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -60,7 +60,7 @@ span {
 }
 
 .radio:before {
-  background-color: orange;
+  background-color: #e45700;
   border-radius: 50%;
   content: '';
   height: 10px;
