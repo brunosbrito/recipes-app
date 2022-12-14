@@ -5,7 +5,6 @@ import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetail
 import FavBtn from './FavBtn';
 import Header from './Header';
 import ShareBtn from './ShareBtn';
-import Header from './Header';
 import '../CSS/RecipeInProgress.css';
 
 function RecipeInProgress() {
