@@ -130,10 +130,7 @@ export default function RecipeDetails() {
     ? btnContinue
     : btnStart;
 
-  console.log(checkProgress().includes(id.toString()));
-
   const complete = (JSON.parse(localStorage.getItem('doneRecipes')));
-  console.log(complete);
 
   const buttonProgress = () => {
     let button = '';

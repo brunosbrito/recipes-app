@@ -9,7 +9,7 @@ const emailInputStr = 'email-input';
 const passInputStr = 'password-input';
 const loginSbmt = 'login-submit-btn';
 const emailEx = 'jose@gmail.com';
-
+const path = '/drinks/15997';
 describe('Testando o componente RecipeDetails Drinks', () => {
   it('1 - Testa se carrega os elementos da receita "GG" na página', async () => {
     const { history } = renderWithRouter(<App />);
@@ -21,22 +21,22 @@ describe('Testando o componente RecipeDetails Drinks', () => {
     userEvent.click(buttonInput);
 
     act(() => {
-      history.push('/drinks/15997');
+      history.push(path);
     });
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(GGMock),
     });
 
-    localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: { 15997: ['0', '1'] }, meals: {} }));
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: {}, meals: {} }));
 
     await waitFor(() => {
-      const photo = screen.getByTestId('recipe-photo');
-      expect(photo).toBeInTheDocument();
+      const title = screen.getByTestId('recipe-title');
+      expect(title).toHaveTextContent('GG');
     });
 
-    const title = screen.getByTestId('recipe-title');
-    expect(title).toHaveTextContent('GG');
+    const photo = screen.getByTestId('recipe-photo');
+    expect(photo).toBeInTheDocument();
 
     for (let index = 0; index < 3; index += 1) {
       const ingredients = screen.getByTestId(`${index}-ingredient-name-and-measure`);
@@ -51,38 +51,36 @@ describe('Testando o componente RecipeDetails Drinks', () => {
       expect(firstRecomendationCard).toBeInTheDocument();
     });
 
-    const startRecipeBtn = screen.getByTestId('start-recipe-btn');
-    userEvent.click(startRecipeBtn);
+    const startBtn = screen.getByRole('button', { name: 'Start Recipe' });
+    userEvent.click(startBtn);
     expect(history.location.pathname).toBe('/drinks/15997/in-progress');
 
-    // act(() => {
-    //   history.push('/drinks/15997');
-    // });
+    localStorage.setItem('inProgressRecipes', JSON.stringify({ drinks: { 15997: ['0', '1'] }, meals: {} }));
+    act(() => {
+      history.push(path);
+    });
 
-    // localStorage.setItem('doneRecipes', JSON.stringify([
-    //   {
-    //     id: '52977',
-    //     type: 'meal',
-    //     nationality: 'Turkish',
-    //     category: 'Side',
-    //     alcoholicOrNot: '',
-    //     name: 'Corba',
-    //     image: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
-    //     doneDate: '2022-12-13T15:24:26.349Z',
-    //     tags: ['Soup'],
-    //   },
-    //   {
-    //     id: '15997',
-    //     type: 'drink',
-    //     nationality: '',
-    //     category: 'Ordinary Drink',
-    //     alcoholicOrNot: 'Optional alcohol',
-    //     name: 'GG',
-    //     image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
-    //     doneDate: '2022-12-13T15:20:17.965Z',
-    //     tags: [],
-    //   },
-    // ]));
-    // expect(startRecipeBtn).not.toBeInTheDocument();
+    const continueBtn = screen.getByRole('button', { name: 'Continue Recipe' });
+    userEvent.click(continueBtn);
+
+    localStorage.setItem('doneRecipes', JSON.stringify([
+      {
+        id: '15997',
+        type: 'drink',
+        nationality: '',
+        category: 'Ordinary Drink',
+        alcoholicOrNot: 'Optional alcohol',
+        name: 'GG',
+        image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+        doneDate: '2022-12-13T15:20:17.965Z',
+        tags: [],
+      },
+    ]));
+    act(() => {
+      history.push(path);
+    });
+
+    expect(startBtn).not.toBeInTheDocument();
+    expect(continueBtn).not.toBeInTheDocument();
   });
 });
