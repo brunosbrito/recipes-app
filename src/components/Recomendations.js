@@ -38,7 +38,13 @@ function Recomendations() {
     <div>
       {
         !recomendations.length > 0
-          ? <h3>Loading...</h3>
+          ? (
+            <div className="load-row">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>)
           : (
             <>
               <h3

@@ -151,6 +151,20 @@ export default function RecipeDetails() {
     return button;
   };
 
+  if (!dataMealsArray?.length > 0 && !dataDrinkArray?.length > 0) {
+    return (
+      <>
+        <Header />
+        <div className="load-row">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <Header />

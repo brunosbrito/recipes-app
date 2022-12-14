@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { RequestDrinkId, RequestMealsId } from '../services/RequestRecipesDetails';
 import FavBtn from './FavBtn';
+import Header from './Header';
 import ShareBtn from './ShareBtn';
 
 function RecipeInProgress() {
@@ -91,7 +92,7 @@ function RecipeInProgress() {
   }
 
   function handleArrayTags(key) {
-    if (key.includes(',')) {
+    if (key?.includes(',')) {
       const array = key.split(',');
       return array;
     }
@@ -147,6 +148,20 @@ function RecipeInProgress() {
     }
   }
 
+  if (!arrayRecipe.length > 0) {
+    return (
+      <>
+        <Header />
+        <div className="load-row">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       {startLocal()}
@@ -154,7 +169,14 @@ function RecipeInProgress() {
       <h1>Em progresso</h1>
       {
         (arrayRecipe.length === 0)
-          ? <p>carregando...</p> : arrayRecipe.map((el, index) => (
+          ? (
+            <div className="load-row">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>)
+          : arrayRecipe.map((el, index) => (
             <div key={ index }>
               <img
                 style={ {

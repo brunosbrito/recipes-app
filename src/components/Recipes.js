@@ -39,12 +39,20 @@ function Recipes() {
   return (
     <>
       <Header />
-      {!categories.length > 0
-        ? <h2>Carregando...</h2>
-        : <Categories /> }
-      {!initialRecipes.length > 0
-        ? <h1>Carregando...</h1>
-        : <RecipesCard /> }
+      {!categories.length > 0 || !initialRecipes.length > 0
+        ? (
+          <div className="load-row">
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>)
+        : (
+          <>
+            <Categories />
+            <RecipesCard />
+          </>)}
+
       <Footer />
     </>
 
