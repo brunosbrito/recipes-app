@@ -8,9 +8,9 @@ Este projeto trata-se de uma aplicação Front End onde é possivel fazer o ligi
 Front-end:
 > Desenvolvido usando: React, cotext Api, hooks, CSS3, HTML5, ES6, RTL, bootsrap
 
-## Instalando Dependências
+## Clone o Repositório
 
-> Primerio clone o repositorio atraves do comando 
+> Primerio clone o repositório atraves do comando 
 ```git clone git@github.com:brunosbrito/recipes-app.git```
 
 ## Instalando Dependências
