@@ -75,13 +75,13 @@ export default function RecipeDetails() {
 
   useEffect(() => {
     getRecomendations();
-  }, [id]);
+  });
 
   useEffect(() => {
     checkPathname();
     requestMeals();
     requestDrink();
-  }, []);
+  });
 
   const btnStart = (
     <button

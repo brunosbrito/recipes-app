@@ -26,7 +26,7 @@ function DoneRecipes() {
 
   useEffect(() => {
     setSearch(data);
-  }, []);
+  }, [data]);
 
   if (data === null || data.length === 0) {
     return (

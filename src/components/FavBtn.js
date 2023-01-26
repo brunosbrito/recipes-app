@@ -72,7 +72,7 @@ function FavBtn() {
     checkPathname();
     requestMeals();
     requestDrink();
-  }, []);
+  });
 
   return (
     <div>
