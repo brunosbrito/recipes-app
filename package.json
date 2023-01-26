@@ -1,5 +1,4 @@
 {
-  "homepage": " http://brunosbrito.github.io/recipes-app",
   "name": "recipes-app-test",
   "version": "1.0.0",
   "private": true,
@@ -23,8 +22,6 @@
     "video-react": "^0.16.0"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "cy": "env CY_CLI=true cypress run",
     "cy:open": "cypress open --e2e --browser chrome",
     "start": "env ESLINT_NO_DEV_ERRORS=true react-scripts start",
