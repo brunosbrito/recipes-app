@@ -21,7 +21,10 @@
     "redux": "^4.2.0",
     "video-react": "^0.16.0"
   },
+  "homepage": "https://brunosbrito.github.io/recipes-app",
   "scripts": {
+    "predeploy": "npm run build",
+  "deploy": "gh-pages -d build",
     "cy": "env CY_CLI=true cypress run",
     "cy:open": "cypress open --e2e --browser chrome",
     "start": "env ESLINT_NO_DEV_ERRORS=true react-scripts start",
