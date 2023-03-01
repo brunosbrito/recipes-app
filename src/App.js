@@ -26,9 +26,7 @@ function App() {
         <Route path="/profile" component={ Profile } />
         <Route exact path="/" render={ (props) => <Login { ...props } /> } />
       </Switch>
-
     </RecipesProvider>
-
   );
 }
 
