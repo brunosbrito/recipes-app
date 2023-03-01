@@ -23,7 +23,7 @@ function Login({ history }) {
     const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 
     const emailCheck = emailRegex.test(user.email);
-    const passCheck = user.password.length > SIX;
+    const passCheck = user.password.length >= SIX;
 
     if (emailCheck && passCheck) {
       setDisabled(false);
@@ -46,24 +46,32 @@ function Login({ history }) {
         <img className="img-fluid" src={ Logo } alt="logo" />
       </div>
       <div className="d-grid gap-2 col-6 mx-auto">
-        <input
-          placeholder="E-mail"
-          className="form-control"
-          data-testid="email-input"
-          type="email"
-          name="email"
-          value={ user.email }
-          onChange={ (e) => handleChange(e) }
-        />
-        <input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={ user.password }
-          onChange={ (e) => handleChange(e) }
-          className="form-control"
-        />
+        <label className="label" htmlFor="email">
+          <input
+            placeholder="E-mail"
+            className="form-control"
+            data-testid="email-input"
+            type="email"
+            name="email"
+            value={ user.email }
+            onChange={ (e) => handleChange(e) }
+          />
+
+          <span>Example: teste@teste.com</span>
+        </label>
+        <label className="label" htmlFor="password">
+          <input
+            data-testid="password-input"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={ user.password }
+            onChange={ (e) => handleChange(e) }
+            className="form-control"
+          />
+          <span>Use 6 or more characters</span>
+        </label>
+
       </div>
       <div className="d-grid gap-2 col-6 mx-auto">
         <button

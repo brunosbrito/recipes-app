@@ -10,7 +10,6 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM
   .createRoot(document.getElementById('root'))
   .render(
-
     <HashRouter>
       <App />
     </HashRouter>,
